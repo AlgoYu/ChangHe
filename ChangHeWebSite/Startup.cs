@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ChangHeWebSite.Areas.Admin.Models.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -32,6 +34,7 @@ namespace ChangHeWebSite
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContext<EFContext>(x=>x.UseSqlServer(Configuration.GetConnectionString("default")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,9 +54,15 @@ namespace ChangHeWebSite
 
             app.UseMvc(routes =>
             {
+                /*前端路由*/
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Index}/{action=Index}/{id?}");
+                /*后台路由*/
+                routes.MapAreaRoute(
+                    "Admin",
+                    "Admin",
+                    "Admin/{controller=ManagementSystem}/{action=Index}/{id?}");
             });
         }
     }

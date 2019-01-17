@@ -14,7 +14,10 @@ namespace ChangHeWebSite
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args)
+                .UseIISIntegration()
+                .Build()
+                .Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
