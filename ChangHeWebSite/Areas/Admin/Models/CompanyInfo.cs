@@ -37,5 +37,13 @@
         /// 公司二维码
         /// </summary>
         public string CompanyQRcode { get; set; }
+        /// <summary>
+        /// 公司关键字
+        /// </summary>
+        public string CompanyKeyWord { get; set; }
+        /// <summary>
+        /// 公司纬经度
+        /// </summary>
+        public string CompanyLatitudeLongitude { get; set; }
     }
 }

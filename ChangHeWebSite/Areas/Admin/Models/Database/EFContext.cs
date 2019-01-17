@@ -25,10 +25,6 @@ namespace ChangHeWebSite.Areas.Admin.Models.Database
         /// </summary>
         public DbSet<CompanyInfo> Company { get; set; }
         /// <summary>
-        /// 导航表
-        /// </summary>
-        public DbSet<Navigation> Navigations { get; set; }
-        /// <summary>
         /// 新闻分类表
         /// </summary>
         public DbSet<NewsClassification> NewsClassifications { get; set; }
@@ -55,17 +51,12 @@ namespace ChangHeWebSite.Areas.Admin.Models.Database
                 c.HasKey(x => x.CompanyName);
                 c.ToTable("CompanyInfo");
             });
-            /*导航表*/
-            modelBuilder.Entity<Navigation>(n =>
-            {
-                n.HasKey(x => x.Id);
-                n.ToTable("Navigation");
-            });
             /*新闻分类表*/
             modelBuilder.Entity<NewsClassification>(n =>
             {
                 n.HasKey(x => x.Id);
-                n.HasMany(x => x.Newses).WithOne().HasForeignKey(x => x.NewsClassification);
+                /*与新闻的一对多关系映射*/
+                n.HasMany(x => x.Newses).WithOne(x=>x.NewsClassification).HasForeignKey(x => x.NewsClassificationId);
                 n.ToTable("NewsClassification");
             });
             /*新闻表*/

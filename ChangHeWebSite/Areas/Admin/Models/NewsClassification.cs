@@ -16,7 +16,7 @@ namespace ChangHeWebSite.Areas.Admin.Models
         /// </summary>
         public string NewsClassificationName { get; set; }
         /// <summary>
-        /// 新闻关系映射
+        /// 新闻虚拟关系映射
         /// </summary>
         public virtual ICollection<News> Newses{ get; set; }
     }
