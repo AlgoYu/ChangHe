@@ -6,6 +6,10 @@
     public class CompanyInfo
     {
         /// <summary>
+        /// 主键
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
         /// 公司名字
         /// </summary>
         public string CompanyName { get; set; }

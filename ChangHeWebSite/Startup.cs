@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ChangHeWebSite.Areas.Admin.Models.Database;
+using ChangHeWebSite.Areas.Admin.Base.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,6 +34,7 @@ namespace ChangHeWebSite
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            /*数据库连接字符串*/
             services.AddDbContext<EFContext>(x=>x.UseSqlServer(Configuration.GetConnectionString("default")));
         }
 
@@ -62,8 +63,11 @@ namespace ChangHeWebSite
                 routes.MapAreaRoute(
                     "Admin",
                     "Admin",
-                    "Admin/{controller=ManagementSystem}/{action=Index}/{id?}");
+                    "Admin/{controller=ManagementSystem}/{action=ManagementSystem}/{id?}");
             });
+
+            /*初始化数据库*/
+            //DatabaseInitialize.InitializeDatabase(app.ApplicationServices);
         }
     }
 }

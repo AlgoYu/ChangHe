@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ChangHeWebSite.Areas.Admin.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace ChangHeWebSite.Areas.Admin.Models.Database
+namespace ChangHeWebSite.Areas.Admin.Base.Database
 {
     /// <summary>
     /// 数据库环境
@@ -15,7 +16,10 @@ namespace ChangHeWebSite.Areas.Admin.Models.Database
         {
 
         }
-
+        /// <summary>
+        /// 管理人员表
+        /// </summary>
+        public DbSet<Manager> Manager { get; set; }
         /// <summary>
         /// 系统信息表
         /// </summary>
@@ -39,16 +43,42 @@ namespace ChangHeWebSite.Areas.Admin.Models.Database
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            /*管理人员表*/
+            modelBuilder.Entity<Manager>(m =>
+            {
+                m.HasKey(x => x.Id);
+                m.HasData(new Manager()
+                {
+                    Id = 1,
+                    ManagerName = "admin",
+                    ManagerPassword = "21232F297A57A5A743894A0E4A801FC3"
+                });
+                m.ToTable("Manager");
+            });
             /*系统信息表*/
             modelBuilder.Entity<SystemInfo>(s =>
             {
-                s.HasKey(x => x.SystemName);
+                s.HasKey(x => x.Id);
                 s.ToTable("SystemInfo");
             });
             /*公司信息表*/
             modelBuilder.Entity<CompanyInfo>(c =>
             {
-                c.HasKey(x => x.CompanyName);
+                c.HasKey(x => x.Id);
+                c.HasData(new CompanyInfo()
+                {
+                    Id = 1,
+                    CompanyName = "111",
+                    CompanyCopyright = "111",
+                    CompanyEmail = "111",
+                    CompanyDescription = "111",
+                    CompanyLogo = "111",
+                    CompanyKeyWord = "111",
+                    CompanyLocation = "111",
+                    CompanyPhone = "111",
+                    CompanyLatitudeLongitude = "111",
+                    CompanyQRcode = "111"
+                });
                 c.ToTable("CompanyInfo");
             });
             /*新闻分类表*/

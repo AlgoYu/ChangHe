@@ -1,2 +1,4 @@
 #Migrations
 ChangHeWebSite/Migrations/
+#upload directory
+ChangHeWebSite/wwwroot/upload/

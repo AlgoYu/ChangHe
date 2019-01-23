@@ -6,6 +6,10 @@
     public class SystemInfo
     {
         /// <summary>
+        /// 主键
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
         /// 系统名称
         /// </summary>
         public string SystemName { get; set; }

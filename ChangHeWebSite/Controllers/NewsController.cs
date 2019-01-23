@@ -8,7 +8,7 @@ namespace ChangHeWebSite.Controllers
 {
     public class NewsController : Controller
     {
-        public IActionResult Index()
+        public IActionResult News()
         {
             return View();
         }

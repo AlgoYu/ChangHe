@@ -1,0 +1,23 @@
+﻿@using ChangHeWebSite.Areas.Admin.Models
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+@model ChangHeWebSite.Areas.Admin.Models.Dto.ResponseTemplate
+@{
+    Layout = null;
+    var serializerSettings = new JsonSerializerSettings
+    {
+        // 设置为驼峰命名
+        ContractResolver = new CamelCasePropertyNamesContractResolver()
+    };
+    var dataStr = JsonConvert.SerializeObject(Model, Formatting.None, serializerSettings);
+}
+
+<div>
+    哈哈哈
+    <div>
+        骄傲骄傲骄傲2
+    </div>
+    <script>
+        console.log("嘿嘿啊啊啊啊啊嘿嘿");
+    </script>
+</div>

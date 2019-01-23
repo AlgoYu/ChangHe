@@ -1,0 +1,151 @@
+﻿@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+@model ChangHeWebSite.Areas.Admin.Models.Dto.ResponseTemplate
+@{
+    Layout = null;
+    var serializerSettings = new JsonSerializerSettings
+    {
+        // 设置为驼峰命名
+        ContractResolver = new CamelCasePropertyNamesContractResolver()
+    };
+    var dataStr = JsonConvert.SerializeObject(Model, Formatting.None, serializerSettings);
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台管理系统</title>
+    <link rel="stylesheet" href="/layui245/css/layui.css">
+    <link rel="stylesheet" href="/css/public.css" />
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">格莱软件后台</div>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <!--<ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="">控制台</a></li>
+                <li class="layui-nav-item"><a href="">商品管理</a></li>
+                <li class="layui-nav-item"><a href="">用户</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">其它系统</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">邮件管理</a></dd>
+                        <dd><a href="">消息管理</a></dd>
+                        <dd><a href="">授权管理</a></dd>
+                    </dl>
+                </li>
+            </ul>-->
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                        肖宇
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">安全退出</a></li>
+            </ul>
+        </div>
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="left-navigation">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">新闻管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;" data-id="news-classification" data-content="@Url.Action("NewsClassificationManager","NewsClassification")">新闻分类</a></dd>
+                            <dd><a href="javascript:;" data-id="news" data-content="@Url.Action("NewsManager","News")">新闻条目</a></dd>
+                            <!--<dd><a href="">超链接</a></dd>-->
+                        </dl>
+                    </li>
+                    <!--<li class="layui-nav-item">
+                        <a href="javascript:;">网站管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;" >公司信息</a></dd>
+                            <dd><a href="">超链接</a></dd>
+                                    </dl>
+                    </li>-->
+                    <!--<li class="layui-nav-item"><a href="">云市场</a></li>-->
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">公司管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;" data-id="company-info" data-content='@Url.Action("CompanyManager","CompanyInfo")'>公司信息</a></dd>
+                            <dd><a href="javascript:;" data-id="company-map" data-content='@Url.Action("CompanyMapManager","CompanyInfo")'>定位信息</a></dd>
+                            <!--<dd><a href="">超链接</a></dd>-->
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <!-- Tab组件 -->
+            <div class="layui-tab layui-tab-brief" lay-allowClose="true" lay-filter="tabs">
+                <ul class="layui-tab-title">
+                    <li class="layui-this" lay-id="index">系统主页</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">这里是主页</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            © layui.com - 底部固定区域
+        </div>
+    </div>
+    <script src="/layui245/layui.js"></script>
+    <script>
+        //将Model转换为JavaScript对象
+        var json = @Html.Raw(dataStr);
+        console.log(json);
+        //layui代码区域
+        layui.use(['element','jquery'], function(){
+            var element = layui.element;
+            var $ = layui.$;
+
+            element.on('nav(left-navigation)', function(elem){
+                console.log(elem); //得到当前点击的DOM对象
+
+                if (elem.context.dataset.id == null) {  //如果没有id则返回
+                    return;
+                } else if ($("[lay-id='" + elem.context.dataset.id + "']").length == 0) {   //如果没有这个选项卡则添加并切换到这个选项卡
+                    $.get("/Admin" + elem.context.dataset.content , function(response,status) {
+                        element.tabAdd('tabs',
+                            {
+                                title: elem.context.innerText,
+                                //content: '<iframe src="/Admin' + elem.context.dataset.content + '" frameborder="0" height="100%" width="100%" scrolling="no" id="' + elem.context.dataset.id+'-iframe" onload="renderIframe(this)"></iframe>', //支持传入html
+                                content: response,
+                                id: elem.context.dataset.id
+                            });
+                        element.tabChange('tabs', elem.context.dataset.id);
+                    });
+                    
+                    //renderIframe(elem.context.dataset.id+"-iframe");
+                    
+                } else {    //否则直接切换到这个选项卡
+                    element.tabChange('tabs', elem.context.dataset.id);
+                }
+            });
+        });
+        //渲染iframe高度
+        function renderIframe(iframe) {
+            try {
+                var bHeight = iframe.contentWindow.document.body.scrollHeight;
+                var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+                var height = Math.max(bHeight, dHeight);
+                iframe.style.height = height+"px";
+            } catch (ex) {
+                console.log("iframe高度渲染出错");
+            }
+        }
+    </script>
+</body>
+</html>

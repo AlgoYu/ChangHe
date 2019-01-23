@@ -1,0 +1,36 @@
+﻿@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+@model ChangHeWebSite.Areas.Admin.Models.Dto.ResponseTemplate
+@{
+    Layout = null;
+    var serializerSettings = new JsonSerializerSettings
+    {
+        // 设置为驼峰命名
+        ContractResolver = new CamelCasePropertyNamesContractResolver()
+    };
+    var dataStr = JsonConvert.SerializeObject(Model, Formatting.None, serializerSettings);
+}
+<div id="map-container" class="map-container-style">
+    
+</div>
+<!--百度地图js-->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZwMXv7df2oHTRqS33EXtfTlMGpaphY66"></script>
+<script>
+    var map = new BMap.Map("map-container"); 
+    var point = new BMap.Point(116.404, 39.915); 
+    map.centerAndZoom(point, 15);
+</script>
+<!--layui-->
+<script>
+    //将Model转换为JavaScript对象
+    var json = @Html.Raw(dataStr);
+    console.log(json);
+    //layui代码
+    layui.use(['layer', 'form', 'upload', 'jquery'], function () {
+        var layer = layui.layer
+            , form = layui.form
+            , upload = layui.upload
+            , $ = layui.$;
+
+    });
+</script>

@@ -1,15 +1,24 @@
-﻿@model object;
+﻿@using ChangHeWebSite.Areas.Admin.Models
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+@model ChangHeWebSite.Areas.Admin.Models.Dto.ResponseTemplate
 @{
     Layout = null;
-    ViewData["Title"] = "Index";
+    var serializerSettings = new JsonSerializerSettings
+    {
+        // 设置为驼峰命名
+        ContractResolver = new CamelCasePropertyNamesContractResolver()
+    };
+    var dataStr = JsonConvert.SerializeObject(Model, Formatting.None, serializerSettings);
 }
 
 <!DOCTYPE HTML>
 <html lang="zh-CN">
 
 <head>
-    <title>昆山海运物流有限公司</title>
+    <title>AAA</title>
     <meta charset="utf-8" />
+    <meta name="keywords" content=""/>
     <meta name="viewport" content="width=1200,user-scalable=yes"><!--最大宽度1200px 允许用户缩放-->
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/cubeportfolio.min.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/cubeportfolio.min.css" />
@@ -276,7 +285,7 @@
                 </div>
                 <div class="col-md-4">
                     <p class="lianxi-p"><span>企业地址</span></p>
-                    <iframe src="map.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/map.html"></iframe>
+                    <!--<iframe src="map.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/map.html"></iframe>-->
                 </div>
                 <div class="col-md-4" style="text-align: center;">
                     <p class="lianxi-p"><span>在线查询</span></p>
@@ -361,5 +370,15 @@
         });
     });
 </script>
+<script src="https://cdn.bootcss.com/vue/2.5.22/vue.min.js"></script>
+<script>
+    //将Model转换为JavaScript对象
+    var json = @Html.Raw(dataStr);
+/*    var app = new Vue({
+        el: "#app",
+        data: {
 
+        }
+    });*/
+</script>
 </html>

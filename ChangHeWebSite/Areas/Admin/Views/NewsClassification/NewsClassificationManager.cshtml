@@ -1,0 +1,173 @@
+﻿@using ChangHeWebSite.Areas.Admin.Models
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+@model ChangHeWebSite.Areas.Admin.Models.Dto.ResponseTemplate
+@{
+    Layout = null;
+    var serializerSettings = new JsonSerializerSettings
+    {
+        // 设置为驼峰命名
+        ContractResolver = new CamelCasePropertyNamesContractResolver()
+    };
+    var dataStr = JsonConvert.SerializeObject(Model, Formatting.None, serializerSettings);
+}
+<!--头部工具栏 start-->
+<script type="text/html" id="top-tool-bar">
+    <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-sm" lay-event="add">
+            <i class="layui-icon">&#xe654;</i>
+        </button>
+        <button class="layui-btn layui-btn-sm" lay-event="delete">
+            <i class="layui-icon">&#xe640;</i>
+        </button>
+        <button class="layui-btn layui-btn-sm" lay-event="refresh">
+            <i class="layui-icon">&#xe666;</i>
+        </button>
+    </div>
+</script>
+<!--头部工具栏 end-->
+<!--列工具条 start-->
+<script type="text/html" id="column-tool-bar">
+    <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-sm" lay-event="update"><i class="layui-icon">&#xe642;</i></button>
+        <button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delete"><i class="layui-icon">&#xe640;</i></button>
+    </div>
+</script>
+<!--列工具条 end-->
+<div class="news-classification-table-container">
+    <table id="NewsClassificationTable" lay-filter="NewsClassificationFilter"></table>
+</div>
+<script>
+    layui.use(['table', 'jquery', 'layer'],
+    function() {
+        var $ = layui.$
+            , table = layui.table
+            , element = layui.element;
+        //数据表渲染
+        table.render({
+            elem: '#NewsClassificationTable',
+            height: 500,
+            url: '/Admin/@Url.Action("NewsClassifications", "NewsClassification")',
+            page: true,
+            toolbar: "#top-tool-bar",
+            cols: [
+                [
+                    { type: 'checkbox', title: '选择框' }, { field: 'id', title: 'ID', sort: true, align: 'center' },
+                    { field: 'newsClassificationName', title: '分类名', align: 'center' },
+                    { toolbar: '#column-tool-bar', align: 'center' }
+                ]
+            ],
+            response: {
+                statusName: 'status' //规定数据状态的字段名称，默认：code
+                ,
+                statusCode: 0 //规定成功的状态码，默认：0
+                ,
+                msgName: 'message' //规定状态信息的字段名称，默认：msg
+                ,
+                countName: 'total' //规定数据总数的字段名称，默认：count
+                ,
+                dataName: 'data' //规定数据列表的字段名称，默认：data
+            }
+        });
+
+        //头部工具栏监听
+        table.on('toolbar(NewsClassificationFilter)', function(obj) {
+            switch (obj.event) {
+                case 'add':
+                    layer.prompt({
+                        formType: 0, //输入框类型，支持0（文本）默认1（密码）2（多行文本）
+                        value: '',
+                        title: '新增分类',
+                        area: ['800px', '350px'] //自定义文本域宽高
+                    }, function(value, index, elem) {
+                        $.post('/admin/@Url.Action("InsertNewsClassification","NewsClassification")',
+                            {
+                                newsClassificationName: value
+                            }, function(response,status) {
+                                if (response.success) {
+                                    layer.msg("添加成功！");
+                                    table.reload('NewsClassificationTable'); //表格重载
+                                } else {
+                                    layer.msg("添加失败！");
+                                }
+                            });
+                        layer.close(index);
+                    });
+                    break;
+                case 'delete':
+                    var selects = table.checkStatus('NewsClassificationTable');
+                    console.log(selects);
+                    if (selects.data.length <= 0) {
+                        layer.msg("您当前还未选中！");
+                    } else {
+                        layer.confirm('确定删除选中的新闻分类吗？', {icon: 3, title:'批量删除分类'}, function(index){
+                            //do something
+                            $.post('/admin/@Url.Action("DeleteNewsClassifications","NewsClassification")',
+                                {
+                                    newsClassifications: selects.data
+                                }, function(response,status) {
+                                    if (response.success) {
+                                        layer.msg("删除成功！");
+                                        table.reload('NewsClassificationTable'); //表格重载
+                                    } else {
+                                        layer.msg("删除失败！");
+                                    }
+                                });
+                            layer.close(index);
+                        });
+                    }
+                    break;
+                case 'refresh':
+                    table.reload('NewsClassificationTable'); //表格重载
+                break;
+            }
+        });
+
+        //列工具条监听
+        table.on('tool(NewsClassificationFilter)',
+            function(obj) {
+                console.log(obj);
+                switch (obj.event) {
+                    case 'delete':
+                        layer.confirm('确定删除这个新闻分类吗？', {icon: 3, title:'删除分类'}, function(index){
+                            //do something
+                            $.post('/admin/@Url.Action("DeleteNewsClassifications","NewsClassification")',
+                                {
+                                    newsClassifications: [obj.data]
+                                }, function(response,status) {
+                                    if (response.success) {
+                                        layer.msg("删除成功！");
+                                        table.reload('NewsClassificationTable'); //表格重载
+                                    } else {
+                                        layer.msg("删除失败！");
+                                    }
+                                });
+                            layer.close(index);
+                        });
+                        break;
+                    case 'update':
+                        layer.prompt({
+                            formType: 0, //输入框类型，支持0（文本）默认1（密码）2（多行文本）
+                            value: obj.data.newsClassificationName,
+                            title: '更新分类',
+                            area: ['800px', '350px'] //自定义文本域宽高
+                        }, function(value, index, elem) {
+                            $.post('/admin/@Url.Action("UpdateNewsClassification","NewsClassification")',
+                                {
+                                    id: obj.data.id,
+                                    newsClassificationName: value
+                                }, function(response,status) {
+                                    if (response.success) {
+                                        layer.msg("更新成功！");
+                                        table.reload('NewsClassificationTable'); //表格重载
+                                    } else {
+                                        layer.msg("更新失败！");
+                                    }
+                                });
+                            layer.close(index);
+                        });
+                        break;
+                }
+            });
+    });
+</script>

@@ -1,0 +1,163 @@
+﻿@using ChangHeWebSite.Areas.Admin.Models
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+@model ChangHeWebSite.Areas.Admin.Models.Dto.ResponseTemplate
+@{
+    Layout = null;
+    var serializerSettings = new JsonSerializerSettings
+    {
+        // 设置为驼峰命名
+        ContractResolver = new CamelCasePropertyNamesContractResolver()
+    };
+    var data = (CompanyInfo)Model.Data;
+    var dataStr = JsonConvert.SerializeObject(Model, Formatting.None, serializerSettings);
+}
+
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-xs6 layui-col-sm6 layui-col-md6 *	layui-col-lg6">
+            <!--Logo设置-->
+            <div class="content-center">
+                <div>
+                    <img src="@data.CompanyLogo" class="company-logo" id="logoImg" />
+                </div>
+                <button class="layui-btn layui-btn-sm" class="company-logo-button" type="button" id="logoButton">上传Logo</button>
+            </div>
+            <hr />
+            <span>其他图片设置：</span>
+            <!--其他图片设置-->
+            <div class="other-image-container">
+                <div class="image-item content-center">
+                    <div>
+                        <img src="@data.CompanyQRcode" id="qrCodeImg" />
+                    </div>
+                    <button class="layui-btn layui-btn-sm" type="button" id="qrCodeButton">上传二维码</button>
+                </div>
+            </div>
+        </div>
+        <!--右边区域-->
+        <div class="layui-col-xs6 layui-col-sm6 layui-col-md6 layui-col-lg6">
+            <form class="layui-form company-form layui-form-pane" action="" lay-filter="companyForm">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">公司名称：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="companyName" required lay-verify="required" placeholder="请输入公司名称" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">公司地址：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="companyLocation" required lay-verify="required" placeholder="请输入公司地址" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">公司邮箱：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="companyEmail" required lay-verify="email" placeholder="请输入公司邮箱" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">公司电话：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="companyPhone" required lay-verify="phone" placeholder="请输入公司电话" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">关键字：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="companyKeyWord" required lay-verify="required" placeholder="请输入公司关键字" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">公司版权：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="companyCopyright" required lay-verify="required" placeholder="请输入公司版权" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">公司描述：</label>
+                    <div class="layui-input-block">
+                        <textarea name="companyDescription" required lay-verify="required" placeholder="请输入公司描述信息" class="layui-textarea"></textarea>
+                    </div>
+                    <!-- 隐藏表单字段:Logo -->
+                    <input type="hidden" name="id" />
+                    <!-- 隐藏表单字段:Logo -->
+                    <input type="hidden" name="companyLogo" />
+                    <!-- 隐藏表单字段:二维码 -->
+                    <input type="hidden" name="companyQRcode" />
+                </div>
+                <div class="layui-form-item content-center">
+                    <button class="layui-btn layui-btn-lg layui-btn-radius" type="button" lay-submit lay-filter="saveInfo">保存信息</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--兼容IE8、IE9的栅格补丁-->
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<!--兼容IE8、IE9的栅格补丁-->
+<script>
+    //将Model转换为JavaScript对象
+    var json = @Html.Raw(dataStr);
+    console.log(json);
+    //layui代码区域
+    layui.use(['layer', 'form', 'upload', 'jquery'], function () {
+            var layer = layui.layer
+                , form = layui.form
+                , upload = layui.upload
+                , $ = layui.$;
+            //初始化表单
+            form.val("companyForm",json.data);
+
+            //初始化图片
+            $("#logoImg").attr('src', json.data.companyLogo);   //logo
+            $("#qrCodeImg").attr("src", json.data.companyQRcode);   //二维码
+
+            //Logo上传按钮
+            var logoButton = upload.render({
+                elem: '#logoButton' //绑定元素
+                ,url: '@Url.Action("UploadImage","FileUpload")' //上传接口
+                ,done: function(res){
+                    //上传完毕回调
+                    if (res.success) {
+                        console.log(res.data);
+                        $("#logoImg").attr('src', res.data);
+                        $("input[name='companyLogo']").val(res.data);
+                    }
+                }
+                ,error: function(){
+                    //请求异常回调
+                }
+            });
+
+            //二维码上传按钮
+            var qrCodeButton = upload.render({
+                elem: '#qrCodeButton' //绑定元素
+                ,url: '@Url.Action("UploadImage","FileUpload")' //上传接口
+                ,done: function(res){
+                    //上传完毕回调
+                    if (res.success) {
+                        $("#qrCodeImg").attr("src", res.data);
+                        $("input[name='companyQRcode']").val(res.data);
+                    }
+                }
+                ,error: function(){
+                    //请求异常回调
+                }
+            });
+
+            //表单提交事件
+            form.on('submit(saveInfo)', function(data) {
+                console.log(data);
+                $.post('/Admin/@Url.Action("UpdateCompanyInfo","CompanyInfo")', data.field,
+                    function (response, status) {
+                        if (response.success) {
+                            layer.msg("修改成功！");
+                        } else {
+                            layer.msg("修改失败！");
+                        }
+                    });
+            });
+        });
+</script>

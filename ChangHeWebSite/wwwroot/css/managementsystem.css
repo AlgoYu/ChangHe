@@ -1,0 +1,34 @@
+﻿/*公司信息样式*/
+.company-logo {
+    width: 75%;
+    border: #2F4056 solid 1px;
+    margin-bottom: 5px;
+}
+
+.company-form {
+    width: 100%;
+}
+
+.other-image-container {
+    width: 100%;
+}
+
+.other-image-container .image-item {
+    display: inline-block;
+    width: 100px;
+}
+
+.other-image-container .image-item img {
+    width: 100px;
+    border: #2F4056 solid 1px;
+    margin-bottom: 5px;
+}
+/*新闻分类样式*/
+.news-classification-table-container {
+    height: 1050px;
+}
+/*定位信息样式*/
+.map-container-style {
+    width: 100%;
+    height: 500px;
+}
