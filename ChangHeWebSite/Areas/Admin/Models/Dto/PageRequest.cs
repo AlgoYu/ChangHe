@@ -10,5 +10,9 @@
         /// 限制条数
         /// </summary>
         public int Limit { get; set; }
+        /// <summary>
+        /// 关键字
+        /// </summary>
+        public string KeyWord { get; set; }
     }
 }

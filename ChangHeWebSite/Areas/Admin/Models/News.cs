@@ -35,9 +35,10 @@ namespace ChangHeWebSite.Areas.Admin.Models
         /// 新闻分类虚拟关系映射
         /// </summary>
         public NewsClassification NewsClassification { get; set; }
+
         /// <summary>
         /// 新闻创建时间
         /// </summary>
-        public DateTime NewsCreateDate { get; set; }
+        public string NewsCreateDate { get; set; } = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
     }
 }

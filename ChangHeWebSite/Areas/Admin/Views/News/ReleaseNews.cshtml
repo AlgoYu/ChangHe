@@ -1,0 +1,97 @@
+﻿@using ChangHeWebSite.Areas.Admin.Models
+@model ChangHeWebSite.Areas.Admin.Models.Dto.ReleaseNewsDto
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<div class="news-form-container layui-form-pane">
+    <form class="layui-form news-form margin-auto content-center" action="" lay-filter="ReleaseNewsForm">
+        <div class="layui-form-item">
+            <img src="/images/defaultImage.png" class="news-cover" id="coverImage" />
+            <div>
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-primary" id="uploadCover"><i class="layui-icon">&#xe67c;</i>上传封面</button>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">新闻标题：</label>
+            <div class="layui-input-block">
+                <input type="text" name="newsTitle" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">所属分类：</label>
+            <div class="layui-input-block">
+                <select name="newsClassificationId" lay-verify="required">
+                    <option value="">请选择一个分类</option>
+                    <!--循环输出分类下拉列表-->
+                    @foreach (var data in Model.NewsClassifications)
+                    {
+                        <option value="@data.Id">@data.NewsClassificationName</option>
+                    }
+                </select>    
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">新闻内容：</label>
+            <textarea name="newsContent" required lay-verify="required" placeholder="请输入新闻内容" class="layui-textarea news-content"></textarea>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <button type="button" class="layui-btn layui-btn-radius layui-btn-lg" lay-submit lay-filter="releaseNews">发布新闻</button>
+            <!--隐藏字段: 新闻封面-->
+            <input type="hidden" name="newsCover" lay-verify="newsCover" />
+        </div>
+    </form>
+</div>
+<script>
+    layui.use(['form', 'jquery','upload','layer'], function() {
+        var $ = layui.$
+            , form = layui.form
+            , upload = layui.upload
+            , layer = layui.layer;
+
+        /*发布按钮监听*/
+        form.on('submit(releaseNews)', function(data) {
+            $.post('/admin/@Url.Action("InsertNews","News")', data.field, function(response, status) {
+                if (response.success) {
+                    form.val('ReleaseNewsForm',
+                        {
+                            newsCover: '',
+                            newsContent: '',
+                            newsTitle: '',
+                            newsClassificationId: ''
+                        });
+                    $("#coverImage").attr('src', '/images/defaultImage.png');
+                    layer.alert('发布成功！', { icon: 1 });
+                }
+            });
+        });
+
+        /*上传封面按钮*/
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#uploadCover' //绑定元素
+            ,url: '/admin/@Url.Action("UploadImage","FileUpload")' //上传接口
+            ,done: function(res){
+                console.log(res);
+                $("#coverImage").attr('src', res.data);
+                $("input[name='newsCover']").val(res.data);
+            }
+            ,error: function(){
+                //请求异常回调
+            }
+        });
+
+        /*表单验证*/
+        form.verify({
+            newsCover: function(value, item){ //value：表单的值、item：表单的DOM对象
+                if (value === ""){
+                    return '新闻封面不能为空';
+                }
+            }
+        });  
+
+        /*第二次打开选择框会消失 所以每次都渲染一下*/
+        form.render('select'); //刷新select选择框渲染
+    });
+</script>

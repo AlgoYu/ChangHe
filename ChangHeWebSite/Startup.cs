@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ChangHeWebSite.Areas.Admin.Base;
 using ChangHeWebSite.Areas.Admin.Base.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -66,8 +67,8 @@ namespace ChangHeWebSite
                     "Admin/{controller=ManagementSystem}/{action=ManagementSystem}/{id?}");
             });
 
-            /*初始化数据库*/
-            //DatabaseInitialize.InitializeDatabase(app.ApplicationServices);
+            /*配置映射关系*/
+            AutoMapperConfiguration.InitializeMapper();
         }
     }
 }

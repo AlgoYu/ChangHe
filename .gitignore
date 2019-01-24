@@ -1,4 +1,11 @@
 #Migrations
 ChangHeWebSite/Migrations/
+
 #upload directory
 ChangHeWebSite/wwwroot/upload/
+
+#release directory
+ChangHeWebSite/bin/
+
+#temp file directory
+ChangHeWebSite/obj/

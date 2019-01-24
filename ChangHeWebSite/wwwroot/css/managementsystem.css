@@ -1,4 +1,8 @@
-﻿/*公司信息样式*/
+﻿/*调试边框*/
+.test {
+    border: #2f4056 solid 2px;
+}
+/*公司信息样式*/
 .company-logo {
     width: 75%;
     border: #2F4056 solid 1px;
@@ -23,12 +27,32 @@
     border: #2F4056 solid 1px;
     margin-bottom: 5px;
 }
-/*新闻分类样式*/
-.news-classification-table-container {
-    height: 1050px;
-}
 /*定位信息样式*/
 .map-container-style {
     width: 100%;
     height: 500px;
 }
+
+/*新闻发布*/
+.news-form-container {
+    width: 100%;
+}
+.news-form-container .news-form {
+    width: 70%;
+}
+.news-form-container .news-form .news-cover {
+    width: 398px;
+    margin-bottom: 10px;
+    border: #2f4056 solid 2px;
+    height: 270px;
+}
+.news-form-container .news-form .news-content {
+    height: 150px;
+}
+
+/*新闻分类样式*/
+.news-table-container {
+    height: 550px;
+}
+
+/*新闻管理样式*/

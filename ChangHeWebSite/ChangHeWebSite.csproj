@@ -5,10 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Areas\Admin\Views\News\ReleaseNews.cshtml" />
     <Content Remove="Views\News\detail.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.1" />
@@ -21,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Admin\Views\News\ReleaseNews.cshtml" />
     <None Include="Views\News\detail.cshtml" />
     <None Include="wwwroot\layui245\font\iconfont.svg" />
     <None Include="wwwroot\layui245\layui.all.js" />
@@ -44,6 +47,14 @@
     <None Include="wwwroot\layui245\lay\modules\tree.js" />
     <None Include="wwwroot\layui245\lay\modules\upload.js" />
     <None Include="wwwroot\layui245\lay\modules\util.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\Admin\Views\News\ReleaseNews.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\News\ReleaseNews.cshtml" />
   </ItemGroup>
 
 </Project>
