@@ -46,8 +46,12 @@
         /// </summary>
         public string CompanyKeyWord { get; set; }
         /// <summary>
-        /// 公司纬经度
+        /// 地图纬度
         /// </summary>
-        public string CompanyLatitudeLongitude { get; set; }
+        public double Lat { get; set; }
+        /// <summary>
+        /// 地图经度
+        /// </summary>
+        public double Lng { get; set; }
     }
 }

@@ -76,7 +76,8 @@ namespace ChangHeWebSite.Areas.Admin.Base.Database
                     CompanyKeyWord = "111",
                     CompanyLocation = "111",
                     CompanyPhone = "111",
-                    CompanyLatitudeLongitude = "111",
+                    Lat = 26.58532,
+                    Lng = 107.98509,
                     CompanyQRcode = "111"
                 });
                 c.ToTable("CompanyInfo");

@@ -42,10 +42,10 @@ namespace ChangHeWebSite.Areas.Admin.Controllers
         public async Task<IActionResult> CompanyMapManager()
         {
             var data = await _db.Company.FirstOrDefaultAsync();
-            ResponseTemplate response = new ResponseTemplate();
-            response.Success = true;
-            response.Data = data.CompanyLatitudeLongitude;
-            return View(response);
+            PointDto dto = new PointDto();
+            dto.Lng = data.Lng;
+            dto.Lat = data.Lat;
+            return View(dto);
         }
         /// <summary>
         /// 更新公司信息
@@ -56,11 +56,24 @@ namespace ChangHeWebSite.Areas.Admin.Controllers
         {
             _db.Company.Update(companyInfo);
             ResponseTemplate response = new ResponseTemplate();
-            if (await _db.SaveChangesAsync() > 0)
-            {
-                response.Success = true;
-                response.Data = await _db.Company.FirstOrDefaultAsync();
-            }
+            response.Success = true;
+            response.Data = await _db.Company.FirstOrDefaultAsync();
+            return Json(response);
+        }
+
+        /// <summary>
+        /// 更新公司信息
+        /// </summary>
+        /// <param name="companyInfo"></param>
+        /// <returns></returns>
+        public async Task<JsonResult> UpdateCompanyLocation(PointDto point)
+        {
+            var company = await _db.Company.FirstOrDefaultAsync();
+            company.Lng = point.Lng;
+            company.Lat = point.Lat;
+            ResponseTemplate response = new ResponseTemplate();
+            response.Success = true;
+            response.Data = await _db.SaveChangesAsync();
             return Json(response);
         }
     }

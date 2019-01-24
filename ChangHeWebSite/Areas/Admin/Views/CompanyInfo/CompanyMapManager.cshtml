@@ -1,6 +1,6 @@
 ﻿@using Newtonsoft.Json
 @using Newtonsoft.Json.Serialization
-@model ChangHeWebSite.Areas.Admin.Models.Dto.ResponseTemplate
+@model ChangHeWebSite.Areas.Admin.Models.Dto.PointDto
 @{
     Layout = null;
     var serializerSettings = new JsonSerializerSettings
@@ -10,25 +10,79 @@
     };
     var dataStr = JsonConvert.SerializeObject(Model, Formatting.None, serializerSettings);
 }
-<div id="map-container" class="map-container-style">
+<div class="layui-btn-container">
+    <button class="layui-btn" id="locationButton" type="button">定位</button>
+    <button class="layui-btn" id="setLocationButton" type="button">设置当前坐标为公司位置</button>
+</div>
+<div id="MapContainer" class="map-container">
     
 </div>
 <script>
-    var map = new BMap.Map("map-container"); 
-    var point = new BMap.Point(116.404, 39.915); 
-    map.centerAndZoom(point, 15);
-</script>
-<!--layui-->
-<script>
-    //将Model转换为JavaScript对象
-    var json = @Html.Raw(dataStr);
-    console.log(json);
-    //layui代码
-    layui.use(['layer', 'form', 'upload', 'jquery'], function () {
-        var layer = layui.layer
-            , form = layui.form
-            , upload = layui.upload
-            , $ = layui.$;
+    layui.use(['layer', 'jquery'], function () {
+        var layer = layui.layer,
+            $ = layui.$;
+        var map = new BMap.Map("MapContainer");          // 创建地图实例  
+        var point = new BMap.Point(@Model.Lng, @Model.Lat);  // 创建点坐标  
+        map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+        var mk = new BMap.Marker(point);    //创建标注
+        map.addOverlay(mk);                //往地图加入标注
+        map.centerAndZoom(point, 21);      // 初始化地图，设置中心点坐标和地图级别
+        window.setTimeout(function(){       //延时0.5秒将地图移动到坐标点
+            map.panTo(point);
+        }, 500);
+        var currentPoint = null;
 
+        /*地图点击事件*/
+        map.addEventListener("click", function (e) {
+            var mk = new BMap.Marker(e.point);
+            map.clearOverlays();
+            map.addOverlay(mk);
+            currentPoint = e.point;
+        });
+
+        /*定位到当前坐标*/
+        $("#locationButton").on("click",
+            function() {
+                var index = layer.load();
+                var geolocation = new BMap.Geolocation();
+                geolocation.getCurrentPosition(function (r) {
+                    if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+                        var mk = new BMap.Marker(r.point);
+                        map.clearOverlays();
+                        map.addOverlay(mk);
+                        map.panTo(r.point);
+                        currentPoint = r.point;
+                        layer.close(index);
+                        layer.msg("浏览器定位信息会有误差，请手动校正！");
+                    }
+                    else {
+                        alert('定位失败:' + this.getStatus());
+                        layer.close(index);
+                    }
+                });
+            });
+
+        /*设置当前位置为公司位置*/
+        $("#setLocationButton").on("click",
+            function () {
+                layer.confirm('确定把当前坐标点设置为公司位置吗？', {icon: 3, title:'提示'}, function(index){
+                    //do something
+                    if (currentPoint != null) {
+                        $.post('/admin/@Url.Action("UpdateCompanyLocation","CompanyInfo")',
+                            {
+                                point: currentPoint
+                            }, function (response, status) {
+                                if (response.success) {
+                                    layer.alert('修改位置成功！'); 
+                                }
+                                layer.close(index);
+                            });
+                    } else {
+                        layer.close(index);
+                        layer.alert('当前位置没有改变哦！'); 
+                    }
+                    
+                });
+            });
     });
 </script>
