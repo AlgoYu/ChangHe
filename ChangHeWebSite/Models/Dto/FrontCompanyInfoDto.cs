@@ -22,6 +22,10 @@
         /// </summary>
         public string CompanyCopyright { get; set; }
         /// <summary>
+        /// 公司备案
+        /// </summary>
+        public string CompanyRecord { get; set; }
+        /// <summary>
         /// 公司地址
         /// </summary>
         public string CompanyLocation { get; set; }

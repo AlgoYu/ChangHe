@@ -57,7 +57,7 @@ namespace ChangHeWebSite.Areas.Admin.Controllers
             _db.Company.Update(companyInfo);
             ResponseTemplate response = new ResponseTemplate();
             response.Success = true;
-            response.Data = await _db.Company.FirstOrDefaultAsync();
+            response.Data = await _db.SaveChangesAsync();
             return Json(response);
         }
 

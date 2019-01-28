@@ -224,7 +224,8 @@
                                 window.location.href = '/admin/@Url.Action("ManagementSystem", "ManagementSystem")';
                             },3000);
                         } else {
-                            alert(response.message);
+                            $("#verificationImage").attr('src', '/admin/@Url.Action("VerificationCodeImage", "VerificationCode")?' + Math.random(999999));
+                            layer.msg(response.message);
                         }
                     }); 
             }
@@ -232,10 +233,7 @@
 
         //点击验证码
         $("#verificationImage").click(function() {
-            console.log("aaaaaa");
-            $.post('/admin/@Url.Action("VerificationCodeImage","VerificationCode")', function(response,status) {
-                console.log(response);
-            });
+            $("#verificationImage").attr('src', '/admin/@Url.Action("VerificationCodeImage", "VerificationCode")?' + Math.random(999999));
         });
         
         $('.form-control').keypress(function(){
