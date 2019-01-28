@@ -40,6 +40,7 @@ namespace ChangHeWebSite.Areas.Admin.Controllers
         /// </summary>
         /// <param name="manager"></param>
         /// <returns></returns>
+        [AllowAnonymous]
         public async Task<JsonResult> Verify(LoginInfoDto logoInfo)
         {
             ResponseTemplate response = new ResponseTemplate();
@@ -53,12 +54,25 @@ namespace ChangHeWebSite.Areas.Admin.Controllers
             {
                 response.Success = true;
                 response.Message = "登录成功！";
-                HttpContext.Session.SetString("Identification",manager.ManagerName);
+                HttpContext.Session.SetString("Token",manager.ManagerName);
             }
             else
             {
                 response.Message = "账号或密码无效！";
             }
+            return Json(response);
+        }
+        /// <summary>
+        /// 验证登录账号
+        /// </summary>
+        /// <param name="manager"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public async Task<JsonResult> Logout()
+        {
+            HttpContext.Session.Remove("Token");
+            ResponseTemplate response = new ResponseTemplate();
+            response.Success = true;
             return Json(response);
         }
     }

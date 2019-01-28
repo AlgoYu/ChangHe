@@ -38,7 +38,7 @@
                     </dl>
                 </li>
             </ul>-->
-            <ul class="layui-nav layui-layout-right">
+            <ul class="layui-nav layui-layout-right" lay-filter="top-navigation">
                 <li class="layui-nav-item">
                     <a href="javascript:;">
                         <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
@@ -49,7 +49,7 @@
                         <dd><a href="">安全设置</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="">安全退出</a></li>
+                <li class="layui-nav-item"><a href="javascript:;" data-id="safety-logout">安全退出</a></li>
             </ul>
         </div>
         <div class="layui-side layui-bg-black">
@@ -114,13 +114,44 @@
             var element = layui.element
                 , $ = layui.$
                 ,layer = layui.layer;
-
+            //左边导航栏监听
             element.on('nav(left-navigation)', function(elem){
                 console.log(elem); //得到当前点击的DOM对象
 
                 if (elem.context.dataset.id == null) {  //如果没有id则返回
                     return;
                 } else if ($("[lay-id='" + elem.context.dataset.id + "']").length == 0) {   //如果没有这个选项卡则添加并切换到这个选项卡
+                    var index = layer.load();
+                    $.get("/Admin" + elem.context.dataset.content, function (response, status) {
+                        element.tabAdd('tabs',
+                            {
+                                title: elem.context.innerText,
+                                //content: '<iframe src="/Admin' + elem.context.dataset.content + '" frameborder="0" height="100%" width="100%" scrolling="no" id="' + elem.context.dataset.id+'-iframe" onload="renderIframe(this)"></iframe>', //支持传入html
+                                content: response,
+                                id: elem.context.dataset.id
+                            });
+                        element.tabChange('tabs', elem.context.dataset.id);
+                        layer.close(index);
+                    });
+
+                    //renderIframe(elem.context.dataset.id+"-iframe");
+
+                } else {    //否则直接切换到这个选项卡
+                    element.tabChange('tabs', elem.context.dataset.id);
+                }
+            });
+            //顶部导航栏监听
+            element.on('nav(top-navigation)', function (elem) {
+                console.log(elem);
+                if (elem.context.dataset.id == null) {  //如果没有id则返回
+                    return;
+                } else if (elem.context.dataset.id == "safety-logout") {
+                    $.post('/Admin/@Url.Action("Logout","Login")', null, function(response, status) {
+                        if (response.success) {
+                            window.location.href = '/admin/@Url.Action("ManagementSystem", "ManagementSystem")';
+                        }
+                    });
+                }else if ($("[lay-id='" + elem.context.dataset.id + "']").length == 0) {   //如果没有这个选项卡则添加并切换到这个选项卡
                     var index = layer.load();
                     $.get("/Admin" + elem.context.dataset.content, function (response, status) {
                         element.tabAdd('tabs',
