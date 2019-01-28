@@ -110,9 +110,10 @@
         var json = @Html.Raw(dataStr);
         console.log(json);
         //layui代码区域
-        layui.use(['element','jquery'], function(){
-            var element = layui.element;
-            var $ = layui.$;
+        layui.use(['element','jquery','layer'], function(){
+            var element = layui.element
+                , $ = layui.$
+                ,layer = layui.layer;
 
             element.on('nav(left-navigation)', function(elem){
                 console.log(elem); //得到当前点击的DOM对象
@@ -120,7 +121,8 @@
                 if (elem.context.dataset.id == null) {  //如果没有id则返回
                     return;
                 } else if ($("[lay-id='" + elem.context.dataset.id + "']").length == 0) {   //如果没有这个选项卡则添加并切换到这个选项卡
-                    $.get("/Admin" + elem.context.dataset.content , function(response,status) {
+                    var index = layer.load();
+                    $.get("/Admin" + elem.context.dataset.content, function (response, status) {
                         element.tabAdd('tabs',
                             {
                                 title: elem.context.innerText,
@@ -129,6 +131,7 @@
                                 id: elem.context.dataset.id
                             });
                         element.tabChange('tabs', elem.context.dataset.id);
+                        layer.close(index);
                     });
 
                     //renderIframe(elem.context.dataset.id+"-iframe");

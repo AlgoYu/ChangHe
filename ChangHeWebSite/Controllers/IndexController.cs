@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using ChangHeWebSite.Areas.Admin.Base.Database;
-using ChangHeWebSite.Areas.Admin.Models.Dto;
+using ChangHeWebSite.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,12 +22,11 @@ namespace ChangHeWebSite.Controllers
         /// 主页视图返回
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            ResponseTemplate response = new ResponseTemplate();
-            response.Data = await _db.Company.FirstOrDefaultAsync();
-            response.Success = true;
-            return View(response);
+            FrontDto dto = new FrontDto();
+            dto.Company = _db.Company.FirstOrDefault();
+            return View(dto);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using ChangHeWebSite.Areas.Admin.Base;
 using ChangHeWebSite.Areas.Admin.Base.Database;
 using ChangHeWebSite.Areas.Admin.Models;
 using ChangHeWebSite.Areas.Admin.Models.Dto;
@@ -15,7 +16,7 @@ namespace ChangHeWebSite.Areas.Admin.Controllers
     /// <summary>
     /// 新闻控制器
     /// </summary>
-    public class NewsController : Controller
+    public class NewsController : ManagementSystemControllerBase
     {
         private readonly EFContext _db;
 

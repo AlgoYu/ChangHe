@@ -26,15 +26,22 @@ namespace ChangHeWebSite
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
+            /*services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+            });*/
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            /*添加Session服务*/
+            services.AddDistributedMemoryCache();
+            services.AddSession(option =>
+            {
+                option.IdleTimeout = TimeSpan.FromSeconds(3600);
+                option.Cookie.HttpOnly = true;
+            });
             /*数据库连接字符串*/
             services.AddDbContext<EFContext>(x=>x.UseSqlServer(Configuration.GetConnectionString("default")));
         }
@@ -53,6 +60,7 @@ namespace ChangHeWebSite
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession(); //使用Session
 
             app.UseMvc(routes =>
             {

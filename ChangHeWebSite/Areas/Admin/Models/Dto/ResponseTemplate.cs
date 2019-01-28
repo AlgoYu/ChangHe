@@ -13,7 +13,7 @@ namespace ChangHeWebSite.Areas.Admin.Models.Dto
         /// <summary>
         /// 后台操作是否成功
         /// </summary>
-        public Boolean Success { get; set; }
+        public Boolean Success { get; set; } = false;
         /// <summary>
         /// 返回状态码
         /// </summary>

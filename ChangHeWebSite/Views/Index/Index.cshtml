@@ -1,7 +1,7 @@
 ﻿@using ChangHeWebSite.Areas.Admin.Models
 @using Newtonsoft.Json
 @using Newtonsoft.Json.Serialization
-@model ChangHeWebSite.Areas.Admin.Models.Dto.ResponseTemplate
+@model FrontDto
 @{
     Layout = null;
     var serializerSettings = new JsonSerializerSettings
@@ -16,14 +16,15 @@
 <html lang="zh-CN">
 
 <head>
-    <title>AAA</title>
+    <title>@Model.Company.CompanyName</title>
     <meta charset="utf-8" />
-    <meta name="keywords" content=""/>
+    <meta name="keyWords" content="@Model.Company.CompanyKeyWord"/>
     <meta name="viewport" content="width=1200,user-scalable=yes"><!--最大宽度1200px 允许用户缩放-->
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/cubeportfolio.min.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/cubeportfolio.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/tf.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/tf.css" />
     <link rel="stylesheet" type="text/css" href="/css/style.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/style.css" />
+    <link rel="stylesheet" type="" href="/css/public.css"/>
 </head>
 
 <body>
@@ -35,17 +36,17 @@
             <div class="fullwidthbanner">
                 <ul>
                     <li data-transition="3dcurtain-horizontal" data-slotamount="15" data-masterspeed="300">
-                        <img src="/images/slide3.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/slide3.jpg" alt="" />
+                        <img src="images/slide3.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/slide3.jpg" alt="" />
                     </li>
 
                     <li data-transition="papercut" data-slotamount="15" data-masterspeed="300" data-link="#">
-                        <img src="/images/slide2.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/slide2.jpg" alt="" />
+                        <img src="images/slide2.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/slide2.jpg" alt="" />
                     </li>
                     <li data-transition="turnoff" data-slotamount="15" data-masterspeed="300">
-                        <img src="/images/slide1.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/slide1.jpg" alt="" />
+                        <img src="images/slide1.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/slide1.jpg" alt="" />
                     </li>
                     <li data-transition="turnoff" data-slotamount="15" data-masterspeed="300">
-                        <img src="/images/slide4.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/slide4.jpg" alt="" />
+                        <img src="images/slide4.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/slide4.jpg" alt="" />
                     </li>
 
                 </ul>
@@ -77,8 +78,8 @@
                 <div class="col-md-3">
                     <div class="index-fuwu">
                         <div>
-                            <img src="/images/fuw.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/fuw.png" />
-                            <img src="/images/fuw1.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/fuw1.png" class="fuw1" />
+                            <img src="images/fuw.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/fuw.png" />
+                            <img src="images/fuw1.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/fuw1.png" class="fuw1" />
                         </div>
                         <h4>整车运输</h4>
                         <p>拥有解放、东风、五十铃、康明斯等格式运输车辆几百部</p>
@@ -87,8 +88,8 @@
                 <div class="col-md-3">
                     <div class="index-fuwu">
                         <div>
-                            <img src="/images/fuw.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/fuw.png" />
-                            <img src="/images/fuw2.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/fuw2.png" class="fuw1" />
+                            <img src="images/fuw.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/fuw.png" />
+                            <img src="images/fuw2.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/fuw2.png" class="fuw1" />
                         </div>
                         <h4>仓储运输</h4>
                         <p>领先的信息系统，全程可视，让您随时掌握每单业务的准确进度</p>
@@ -97,8 +98,8 @@
                 <div class="col-md-3">
                     <div class="index-fuwu">
                         <div>
-                            <img src="/images/fuw.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/fuw.png" />
-                            <img src="/images/fuw3.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/fuw3.png" class="fuw1" />
+                            <img src="images/fuw.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/fuw.png" />
+                            <img src="images/fuw3.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/fuw3.png" class="fuw1" />
                         </div>
                         <h4>空车配送</h4>
                         <p>具有多温控组合运输，配送能力和异化服务的运输产品及模式</p>
@@ -107,8 +108,8 @@
                 <div class="col-md-3">
                     <div class="index-fuwu">
                         <div>
-                            <img src="/images/fuw.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/fuw.png" />
-                            <img src="/images/fuw4.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/fuw4.png" class="fuw1" />
+                            <img src="images/fuw.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/fuw.png" />
+                            <img src="images/fuw4.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/fuw4.png" class="fuw1" />
                         </div>
                         <h4>安全包装</h4>
                         <p>专业从事国内各地货物运输服务，有着严谨的运输组织</p>
@@ -133,7 +134,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="index-ab-bj">
-                    <img src="/images/ab.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/ab.png" />
+                    <img src="images/ab.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/ab.png" />
                     <div>
                         <h3>公司介绍</h3>
                         <p>COMPANY INTRODUCTION</p>
@@ -164,8 +165,8 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="service-index-img">
                             <a>
-                                <img src="/images/5.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/5.jpg" />
-                                <img src="/images/5.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/5.jpg" class="img-service" />
+                                <img src="images/5.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/5.jpg" />
+                                <img src="images/5.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/5.jpg" class="img-service" />
                                 <h3>公路运输</h3>
                                 <p>发展汽运服务，充分运用各式运输车辆为客户提供全方位、灵活的干线运输服务。为区域性连锁、门到门、特殊性、专业性客户提供联动服务</p>
                             </a>
@@ -174,8 +175,8 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="service-index-img">
                             <a>
-                                <img src="/images/6.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/6.jpg" />
-                                <img src="/images/6.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/6.jpg" class="img-service" />
+                                <img src="images/6.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/6.jpg" />
+                                <img src="images/6.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/6.jpg" class="img-service" />
                                 <h3>海陆运输</h3>
                                 <p>无论您需要什么物流服务，需要您做的只是想起我们。我们坚持：不懈努力 追求卓越前进的道路没有终点，为您打造拥有海上运输服务</p>
                             </a>
@@ -184,8 +185,8 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="service-index-img">
                             <a>
-                                <img src="/images/7.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/7.jpg" />
-                                <img src="/images/7.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/7.jpg" class="img-service" />
+                                <img src="images/7.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/7.jpg" />
+                                <img src="images/7.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/7.jpg" class="img-service" />
                                 <h3>铁路运输</h3>
                                 <p>时速达160公里/小时特快行邮专列属中国最快的铁路货运专列，按直达特快客运列车等级运行，为高附加值产品提供直达快运服务</p>
                             </a>
@@ -194,8 +195,8 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="service-index-img">
                             <a>
-                                <img src="/images/8.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/8.jpg" />
-                                <img src="/images/8.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/8.jpg" class="img-service" />
+                                <img src="images/8.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/8.jpg" />
+                                <img src="images/8.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/8.jpg" class="img-service" />
                                 <h3>航空运输</h3>
                                 <p>办理各类货物的航空运输，包括集中托运、门到门运输等；提供空、陆空联运等多式联运；承办文件、样品、小件物品的一条龙运输服务</p>
                             </a>
@@ -227,7 +228,7 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="service-index-img">
                             <a href="news-xq.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news-xq.html">
-                                <img src="/images/ibvz.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/ibvz.jpg" />
+                                <img src="images/ibvz.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/ibvz.jpg" />
                                 <h3>影响我国危化品物流运输的因素</h3>
                                 <time>2017-06-21</time>
                                 <p>危化品物流运输爆炸，导致了悲剧的发生，通过悲剧，我们也看到了危化品物流运输的安全问题，目前我国的危化品物流行业的现状是小，散，乱，差的，导致这些现象的因素是很多的，以下原因导致我国危化品物流运输的现状。​</p>
@@ -237,7 +238,7 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="service-index-img">
                             <a href="news-xq2.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news-xq2.html">
-                                <img src="/images/j6x7.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/j6x7.jpg" />
+                                <img src="images/j6x7.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/j6x7.jpg" />
                                 <h3>现代物流的几个特征</h3>
                                 <time>2017-06-21</time>
                                 <p>如今是电子商务时代，现代物流的服务的核心目标，就是在物流过程中，以最小的综合成本来满足顾客的需求，现代物流存在以下特征的。</p>
@@ -247,7 +248,7 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="service-index-img">
                             <a href="news-xq3.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news-xq3.html">
-                                <img src="/images/3l5t.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/3l5t.jpg" />
+                                <img src="images/3l5t.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/3l5t.jpg" />
                                 <h3>智能物流打造物流服务新高度</h3>
                                 <time>2017-06-21</time>
                                 <p>随着物流的逐步发展，各种各样得创新规模都相距出现，而智能物流，就是其中之一。</p>
@@ -257,7 +258,7 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="service-index-img">
                             <a href="news-xq4.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news-xq4.html">
-                                <img src="/images/wkoc.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/wkoc.jpg" />
+                                <img src="images/wkoc.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/wkoc.jpg" />
                                 <h3>物流公司浅析包装在物流运输中的五点作用</h3>
                                 <time>2017-06-21</time>
                                 <p>物流公司浅析包装在物流运输中的五点作用：包装是物流的起点，而包装的合理化、低成本更是现代物流最基础的物质保证。北京物流公司专家为你介绍一下，包装在物流业务时所起到的五点作用，从而提高竞争力，以优质的服务获得用户认可。</p>
@@ -277,30 +278,29 @@
             <div class="row">
                 <div class="col-md-4">
                     <p class="lianxi-p"><span>联系方式</span></p>
-                    <img src="/images/dai.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/dai.jpg" />
-                    <p><i></i><strong>地址:</strong>昆山市前进西路301号</p>
-                    <p><i></i><strong>邮箱:</strong>hx_hou@geding.net</p>
-                    <p><i></i><strong>电话:</strong>0512-87818757 </p>
-                    <p><i></i><strong>手机:</strong>15995656015</p>
+                    <img src="@Model.Company.CompanyQRcode" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/dai.jpg" />
+                    <p class="content-center"><i></i><strong>地址:</strong>@Model.Company.CompanyLocation</p>
+                    <p class="content-center"><i></i><strong>邮箱:</strong>@Model.Company.CompanyEmail</p>
+                    <p class="content-center"><i></i><strong>电话:</strong>@Model.Company.CompanyPhone</p>
                 </div>
                 <div class="col-md-4">
                     <p class="lianxi-p"><span>企业地址</span></p>
-                    <!--<iframe src="map.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/map.html"></iframe>-->
+                    <iframe src="map.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/map.html"></iframe>
                 </div>
                 <div class="col-md-4" style="text-align: center;">
-                    <p class="lianxi-p"><span>在线查询</span></p>
-                    <p><strong>产品名称:</strong>&nbsp;&nbsp;&nbsp;<input type="" name="" id="" /></p>
+                    <p class="lianxi-p"><span>联系我们</span></p>
+                    <p><strong>您的姓名:</strong>&nbsp;&nbsp;&nbsp;<input type="" name="" id="" /></p>
                     <p><strong>留言备注:</strong>&nbsp;&nbsp;&nbsp;<textarea type="" name="" id="" /></textarea></p>
                     <p><strong>联系电话:</strong>&nbsp;&nbsp;&nbsp;<input type="" name="" id="" /></p>
-                    <p><strong>订单号:&nbsp;&nbsp;&nbsp;&nbsp;</strong>&nbsp;&nbsp;&nbsp;<input type="" name="" id="" /></p>
-                    <p class="tijiao"><a href="">查询</a></p>
+                    <p><strong>您的邮箱:</strong>&nbsp;&nbsp;&nbsp;<input type="" name="" id="" /></p>
+                    <p class="tijiao"><a href="">留言</a></p>
                 </div>
             </div>
         </div>
     </div>
-    <!--底部渲染start-->
+    <!--头部视图渲染start-->
     @Html.Partial("_Bottom");
-    <!--底部渲染end-->
+    <!--头部视图渲染end-->
 </body>
 <script type="text/javascript" src="/js/jquery.min.js" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/js/bootstrap.min.js"></script>
@@ -308,7 +308,7 @@
 <script type="text/javascript" src="/js/jquery.banner.revolution.min.js" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/js/jquery.banner.revolution.min.js"></script>
 <!--<script type="text/javascript" src="js/jquery.cubeportfolio.min.js"></script>
 <script type="text/javascript" src="js/portfolio-masonry-4col.js"></script>-->
-<script type="text/javascript" src="/js/banner.js" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/js/banner.js"></script>
+<script type="text/javascript" src="js/banner.js" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/js/banner.js"></script>
 <!--向上滚动-->
 <!--<script src="js/jquery.SuperSlide.2.1.1.js"></script>
 <script type="text/javascript">
@@ -370,15 +370,5 @@
         });
     });
 </script>
-<script src="https://cdn.bootcss.com/vue/2.5.22/vue.min.js"></script>
-<script>
-    //将Model转换为JavaScript对象
-    var json = @Html.Raw(dataStr);
-/*    var app = new Vue({
-        el: "#app",
-        data: {
 
-        }
-    });*/
-</script>
 </html>

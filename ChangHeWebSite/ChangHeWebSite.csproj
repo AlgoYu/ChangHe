@@ -16,6 +16,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+    <PackageReference Include="ZKWeb.System.Drawing" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,6 +56,12 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Areas\Admin\Views\News\ReleaseNews.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="VerifyCode.Gif">
+      <HintPath>lib\VerifyCode.Gif.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
