@@ -8,6 +8,7 @@ using ChangHeWebSite.Areas.Admin.Base.Database;
 using ChangHeWebSite.Areas.Admin.Models;
 using ChangHeWebSite.Areas.Admin.Models.Dto;
 using ChangHeWebSite.lib;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -62,6 +63,7 @@ namespace ChangHeWebSite.Areas.Admin.Controllers
         /// <returns></returns>
         public async Task<JsonResult> InsertNews(News news)
         {
+            news.NewsAuthor = HttpContext.Session.GetString("Token");
             _db.Newses.Add(news);
             ResponseTemplate response = new ResponseTemplate();
             response.Success = true;

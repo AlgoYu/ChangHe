@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Login form shake effect</title>
+    <title>后台登录</title>
 
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
 
@@ -78,11 +78,12 @@
           color: #999;
         }
 
-        .form-group .verification {
+        .form-group .verification-code-image {
             position: absolute;
             right: 15px;
             top: 7px;
             color: #999;
+            cursor: pointer;
         }
 
         .log-status.wrong-entry {
@@ -170,16 +171,16 @@
     <div class="login-form">
         <h1>Vini</h1>
         <div class="form-group log-status">
-            <input type="text" class="form-control" placeholder="用户名 " id="UserName">
+            <input type="text" class="form-control" placeholder="用户名 " id="UserName" autocomplete="off">
             <i class="fa fa-user"></i>
         </div>
         <div class="form-group log-status">
-            <input type="password" class="form-control" placeholder="密码" id="Password">
+            <input type="password" class="form-control" placeholder="密码" id="Password" autocomplete="off">
             <i class="fa fa-lock"></i>
         </div>
         <div class="form-group log-status">
-            <input type="text" onKeyUp="value=value.replace(/[\W]/g,'')" class="form-control" placeholder="验证码" id="VerificationCode">
-            <img class="verification" src="/admin/@Url.Action("VerificationCodeImage","VerificationCode")"/>
+            <input type="text" onKeyUp="value=value.replace(/[\W]/g,'')" class="form-control" placeholder="验证码" id="VerificationCode" autocomplete="off">
+            <img id="verificationImage" class="verification-code-image" src="/admin/@Url.Action("VerificationCodeImage","VerificationCode")"/>
         </div>
 
         <span class="alert">无效的输入信息</span>
@@ -188,6 +189,7 @@
     </div>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script src="https://cdn.bootcss.com/layer/2.3/layer.js"></script>
 <script>
     $(document).ready(function() {
         $('.log-btn').click(function() {
@@ -207,14 +209,17 @@
 
             //登录
             if (!empty) {
+                var index = layer.load();
                 $.post('/admin/@Url.Action("Verify", "Login")',
                     {
                         UserName: $("#UserName").val(),
                         PassWord: md5($("#Password").val()),
-                        VerificationCode: $("#VerificationCode").val()
-                    },
-                    function(response, status) {
+                        VerificationCode: $("#VerificationCode").val().toLowerCase()
+            },
+                    function (response, status) {
+                        layer.close(index);
                         if (response.success) {
+                            layer.msg("登录成功！3秒后跳转到管理页面！");
                             setTimeout(function() {
                                 window.location.href = '/admin/@Url.Action("ManagementSystem", "ManagementSystem")';
                             },3000);
@@ -224,6 +229,15 @@
                     }); 
             }
         });
+
+        //点击验证码
+        $("#verificationImage").click(function() {
+            console.log("aaaaaa");
+            $.post('/admin/@Url.Action("VerificationCodeImage","VerificationCode")', function(response,status) {
+                console.log(response);
+            });
+        });
+        
         $('.form-control').keypress(function(){
             $('.log-status').removeClass('wrong-entry');
         });

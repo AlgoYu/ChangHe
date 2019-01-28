@@ -1,4 +1,5 @@
-﻿@using Newtonsoft.Json
+﻿@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
 @using Newtonsoft.Json.Serialization
 @model ChangHeWebSite.Areas.Admin.Models.Dto.ResponseTemplate
 @{
@@ -42,7 +43,7 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;">
                         <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                        肖宇
+                        @ViewData["ManagerName"]
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a href="">基本资料</a></dd>
@@ -108,7 +109,6 @@
     <script>
         //将Model转换为JavaScript对象
         var json = @Html.Raw(dataStr);
-        console.log(json);
         //layui代码区域
         layui.use(['element','jquery','layer'], function(){
             var element = layui.element

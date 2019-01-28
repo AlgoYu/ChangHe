@@ -75,7 +75,7 @@ namespace ChangHeWebSite
                     "Admin/{controller=ManagementSystem}/{action=ManagementSystem}/{id?}");
             });
 
-            /*配置映射关系*/
+            /*配置数据传输对象映射关系*/
             AutoMapperConfiguration.InitializeMapper();
         }
     }
