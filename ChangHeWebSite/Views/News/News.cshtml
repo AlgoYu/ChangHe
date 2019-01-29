@@ -1,4 +1,4 @@
-﻿@model object;
+﻿@model ChangHeWebSite.Models.Dto.FrontDto
 @{
     Layout = null;
 }
@@ -7,13 +7,15 @@
 <html lang="zh-CN">
 
 <head>
-    <title>昆山海运物流有限公司</title>
+    <title>@Model.CompanyDto.CompanyName</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=1200,user-scalable=yes"><!--最大宽度1200px 允许用户缩放-->
+    <meta name="keywords" content="@Model.CompanyDto.CompanyKeyWord" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/tf.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/tf.css" />
     <link rel="stylesheet" type="text/css" href="/css/style1.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/style1.css" />
-
+    <link rel="stylesheet" type="text/css" href="/layui245/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/public.css"/>
 </head>
 
 <body>
@@ -37,16 +39,18 @@
                     </div>
                     <div class="ab-cebian"></div>
                     <div class="cebian-list">
-                        <ul>
-                            <li><a href="news.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news.html">公司新闻</a></li>
-                            <li><a href="javascript:if(confirm('http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news-hy.html  \n\nكτݾϞרԃ Teleport Ultra Ђ՘, ӲΪ ̼ˇһٶԫ̼քǴʼַ֘ۜԶքtޓcɧڻţնճǴʼַ֘ԲŚʮ׈ʨ׃, كτݾݫѻݓɫЂ՘דc  \n\nţЫ՚ؾϱǷʏղߪ̼?'))window.location='http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news-hy.html'" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news-hy.html">行业新闻</a></li>
+                        <ul id="newsClassificationList">
+                            @foreach (var newsClassification in Model.NewsClassifications)
+                            {
+                                <li><a href="javascript:;" data-newsclassificationID="@newsClassification.Id">@newsClassification.NewsClassificationName</a></li>
+                            }
                         </ul>
                     </div>
                     <div class="ab-cebian"></div>
                     <div class="cebian-lianxi">
                         <div><strong>全国服务热线 :</strong></div>
-                        <div><span>0512-57995109</span></div>
-                        <div><strong>TEL:</strong>0512-57995109</div>
+                        <div><span>@Model.CompanyDto.CompanyPhone</span></div>
+                        <div><strong>Email:</strong>@Model.CompanyDto.CompanyEmail</div>
                         <div><strong>QQ:</strong>1927732720</div>
                     </div>
                 </div>
@@ -54,8 +58,23 @@
                     <div class="bread-xie">
                         <a href="index.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/index.html">首页</a>>><a href="news.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news.html">新闻资讯</a>
                     </div>
-                    <div class="news-list clearfix">
-                        <div class="clearfix news-first">
+                    <div class="news-list clearfix" id="newContent">
+                        @foreach (var news in Model.Newses)
+                        {
+                            <div class="clearfix news-first">
+                                <div class="col-sm-2">
+                                    <div class="fangkuai">
+                                        <div class="fangkuai1">19</div>
+                                        <div class="fangkuai2">2017-07</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-10">
+                                    <h3><a href="@Url.Action("Detail","News")?id=@news.Id">@news.NewsTitle</a></h3>
+                                    <p>@news.NewsContent</p>
+                                </div>
+                            </div>
+                        }
+                        @*<div class="clearfix news-first">
                             <div class="col-sm-2">
                                 <div class="fangkuai">
                                     <div class="fangkuai1">19</div>
@@ -102,9 +121,12 @@
                                 <h3><a href="news-xq4.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news-xq4.html">物流公司浅析包装在物流运输中的五点作用</a></h3>
                                 <p>物流公司浅析包装在物流运输中的五点作用：包装是物流的起点，而包装的合理化、低成本更是现代物流最基础的物质保证。北京物流公司专家为你介绍一下，包装在物流业务时所起到的五点作用，从而提高竞争力，以优质的服务获得用户认可。</p>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
+            </div>
+            <div class="content-center">
+                <div id="pages"></div>
             </div>
         </div>
     </div>
@@ -116,5 +138,52 @@
 <script type="text/javascript" src="/js/jquery.min.js" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/main.js" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/js/main.js"></script>
+<script type="text/javascript" src="/layui245/layui.js"></script>
+<script>
+    layui.use(['laypage','layer'], function () {
+        var laypage = layui.laypage, layer = layui.layer;
+  
+        //执行一个laypage实例
+        var page = laypage.render({
+            elem: 'pages' //注意，这里的 test1 是 ID，不用加 # 号
+            , count: 50 //数据总数，从服务端得到
+            , curr: 1
+            , jump: function (obj, first) {
+                
+                //首次不执行
+                if (!first) {
+                    var index = layer.load();
+                    $.post('@Url.Action("ResponseNewses","News")',
+                        {
+                            page: obj.curr,
+                            limit: obj.limit
+                        }, function (response, status) {
+                            $("#newContent").empty();
+                            response.data.forEach(function(data) {
+                                $("#newContent").append('<div class="clearfix news-first"><div class="col-sm-2"><div class="fangkuai"><div class="fangkuai1">19</div><div class="fangkuai2">2017-07</div></div></div><div class="col-sm-10"><h3><a href="@Url.Action("Detail","News")?id=' + data.id + '">' + data.newsTitle + '</a></h3><p>' + data.newsContent+'</p></div></div>');
+                            });
+                            layer.close(index);
+                        });
+                }
+            }
+        });
 
+        /*分页点击事件*/
+        $("#newsClassificationList").click(function (obj) {
+            var index = layer.load();
+            $.post('@Url.Action("ResponseNewses","News")',
+                {
+                    page: obj.curr,
+                    limit: obj.limit,
+                    newsClassificationId: obj.target.attributes[1].value
+                }, function (response, status) {
+                    layer.close(index);
+                    $("#newContent").empty();
+                    response.data.forEach(function(data) {
+                        $("#newContent").append('<div class="clearfix news-first"><div class="col-sm-2"><div class="fangkuai"><div class="fangkuai1">19</div><div class="fangkuai2">2017-07</div></div></div><div class="col-sm-10"><h3><a href="@Url.Action("Detail","News")?id=' + data.id + '">' + data.newsTitle + '</a></h3><p>' + data.newsContent+'</p></div></div>');
+                    });
+                });
+        });
+    });
+</script>
 </html>

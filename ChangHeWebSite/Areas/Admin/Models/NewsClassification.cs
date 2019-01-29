@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ChangHeWebSite.Models.Dto;
 
 namespace ChangHeWebSite.Areas.Admin.Models
 {

@@ -5,11 +5,12 @@
         /// <summary>
         /// 当前页
         /// </summary>
-        public int Page { get; set; }
+        public int Page { get; set; } = 1;
+
         /// <summary>
         /// 限制条数
         /// </summary>
-        public int Limit { get; set; }
+        public int Limit { get; set; } = 10;
         /// <summary>
         /// 关键字
         /// </summary>

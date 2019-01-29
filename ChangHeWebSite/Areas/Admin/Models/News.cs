@@ -34,7 +34,7 @@ namespace ChangHeWebSite.Areas.Admin.Models
         /// <summary>
         /// 新闻分类虚拟关系映射
         /// </summary>
-        public NewsClassification NewsClassification { get; set; }
+        public virtual NewsClassification NewsClassification { get; set; }
 
         /// <summary>
         /// 新闻创建时间

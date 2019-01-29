@@ -13,12 +13,16 @@ namespace ChangHeWebSite.Areas.Admin.Base
             //初始化
             Mapper.Initialize(mapper =>
             {
-                /*前端公司信息传输对象映射*/
+                /*前端公司信息数据传输对象映射*/
                 mapper.CreateMap<CompanyInfo, FrontCompanyInfoDto>();
+                /*前端新闻分类信息数据传输对象映射*/
+                mapper.CreateMap<NewsClassification, FrontNewsClassificationDto>();
+                /*前端新闻数据传输对象映射*/
+                mapper.CreateMap<News, FrontNewsDto>();
 
 
 
-                /*后台新闻表传输对象映射*/
+                /*后台新闻表数据传输对象映射*/
                 mapper.CreateMap<News, NewsTableDto>()
                     .ForMember(dest => dest.NewsClassificationName,
                         opt => opt.MapFrom(src => src.NewsClassification.NewsClassificationName));
