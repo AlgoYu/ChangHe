@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 body {
 	background:#fff;
@@ -258,7 +258,7 @@ a:hover {
 }
 
 .tp-simpleresponsive >ul >li {
-    list-stye: none;
+    list-style: none;
     position: absolute;
     visibility: hidden;
 }
