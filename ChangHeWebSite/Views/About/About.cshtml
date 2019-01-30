@@ -11,9 +11,9 @@
     <meta charset="utf-8" />
     <meta name="keywords" content="@Model.CompanyDto.CompanyKeyWord"/>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/css/tf.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/tf.css" />
-    <link rel="stylesheet" type="text/css" href="/css/style1.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/style1.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/tf.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style1.css"/>
 
 </head>
 
@@ -23,14 +23,14 @@
         @Html.Partial("_Header");
         <!--头部视图渲染end-->
         <div id="wrapper" class="about-page">
-            <img src="/images/7htc.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/7htc.jpg" class="about-page-img" />
+            <img src="/images/7htc.jpg" class="about-page-img" />
         </div>
         <div class="about-us">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="cebian">
-                            <img src="/images/ww.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/ww.png" />
+                            <img src="/images/ww.png" />
                             <div>
                                 <div></div>
                                 <h2>关于我们</h2>
@@ -41,8 +41,8 @@
                         <div class="cebian-lianxi">
                             <div><strong>全国服务热线 :</strong></div>
                             <div><span>@Model.CompanyDto.CompanyPhone</span></div>
-                            <div><strong>Email:</strong>@Model.CompanyDto.CompanyEmail</div>
-                            <div><strong>QQ:</strong>1927732720</div>
+                            <div><strong>联系人:</strong>@Model.CompanyDto.CompanyContactPerson</div>
+                            <div><strong>微信:</strong>@Model.CompanyDto.CompanyWeChat</div>
                         </div>
                     </div>
                     <div class="col-sm-10">

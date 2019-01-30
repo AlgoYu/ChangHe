@@ -1,15 +1,6 @@
-﻿@using ChangHeWebSite.Areas.Admin.Models
-@using Newtonsoft.Json
-@using Newtonsoft.Json.Serialization
-@model ChangHeWebSite.Models.Dto.FrontDto
+﻿@model ChangHeWebSite.Models.Dto.FrontDto
 @{
     Layout = null;
-    var serializerSettings = new JsonSerializerSettings
-    {
-        // 设置为驼峰命名
-        ContractResolver = new CamelCasePropertyNamesContractResolver()
-    };
-    var dataStr = JsonConvert.SerializeObject(Model, Formatting.None, serializerSettings);
 }
 
 <!DOCTYPE HTML>
@@ -19,12 +10,12 @@
     <title>@Model.CompanyDto.CompanyName</title>
     <meta charset="utf-8" />
     <meta name="keywords" content="@Model.CompanyDto.CompanyKeyWord"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/css/cubeportfolio.min.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/cubeportfolio.min.css" />
-    <link rel="stylesheet" type="text/css" href="/css/tf.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/tf.css" />
-    <link rel="stylesheet" type="text/css" href="/css/style.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/style.css" />
-    <link rel="stylesheet" type="" href="/css/public.css"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/cubeportfolio.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/tf.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <link rel="stylesheet" type="" href="/css/public.css" />
 </head>
 
 <body>
@@ -36,17 +27,17 @@
             <div class="fullwidthbanner">
                 <ul>
                     <li data-transition="3dcurtain-horizontal" data-slotamount="15" data-masterspeed="300">
-                        <img src="images/slide3.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/slide3.jpg" alt="" />
+                        <img src="images/slide3.jpg" />
                     </li>
 
                     <li data-transition="papercut" data-slotamount="15" data-masterspeed="300" data-link="#">
-                        <img src="images/slide2.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/slide2.jpg" alt="" />
+                        <img src="images/slide2.jpg" />
                     </li>
                     <li data-transition="turnoff" data-slotamount="15" data-masterspeed="300">
-                        <img src="images/slide1.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/slide1.jpg" alt="" />
+                        <img src="images/slide1.jpg" />
                     </li>
                     <li data-transition="turnoff" data-slotamount="15" data-masterspeed="300">
-                        <img src="images/slide4.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/slide4.jpg" alt="" />
+                        <img src="images/slide4.jpg" />
                     </li>
 
                 </ul>
@@ -285,7 +276,9 @@
                 </div>
                 <div class="col-md-4">
                     <p class="lianxi-p"><span>企业地址</span></p>
-                    <iframe src="map.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/map.html"></iframe>
+                    <div id="mapContainer" style="width: 100%; height: 250px;border: #2f4056 solid 1px;">
+
+                    </div>
                 </div>
                 <div class="col-md-4" style="text-align: center;">
                     <p class="lianxi-p"><span>联系我们</span></p>
@@ -308,6 +301,7 @@
 <script type="text/javascript" src="/js/jquery.banner.revolution.min.js" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/js/jquery.banner.revolution.min.js"></script>
 <!--<script type="text/javascript" src="js/jquery.cubeportfolio.min.js"></script>
 <script type="text/javascript" src="js/portfolio-masonry-4col.js"></script>-->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZwMXv7df2oHTRqS33EXtfTlMGpaphY66"></script>
 <script type="text/javascript" src="js/banner.js" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/js/banner.js"></script>
 <!--向上滚动-->
 <!--<script src="js/jquery.SuperSlide.2.1.1.js"></script>
@@ -320,6 +314,17 @@
         interTime: 50
     });
 </script>-->
+<script>
+    var map = new BMap.Map("mapContainer");
+    var point = new BMap.Point(@Model.CompanyDto.Lng, @Model.CompanyDto.Lat);
+    var marker = new BMap.Marker(point);        // 创建标注    
+    map.addOverlay(marker);                     // 将标注添加到地图中
+    map.centerAndZoom(point, 15);
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+    window.setTimeout(function(){  
+        map.panTo(point);    
+    }, 500);
+</script>
 <script>
     $(function () {
         $(".news-tab li").click(function () {

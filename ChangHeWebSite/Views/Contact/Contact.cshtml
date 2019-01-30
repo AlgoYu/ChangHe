@@ -1,4 +1,4 @@
-﻿@model object;
+﻿@model ChangHeWebSite.Models.Dto.FrontDto
 @{
     Layout = null;
 }
@@ -7,12 +7,13 @@
 <html lang="zh-CN">
 
 <head>
-    <title>昆山海运物流有限公司</title>
+    <title>@Model.CompanyDto.CompanyName</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=1200,user-scalable=yes"><!--最大宽度1200px 允许用户缩放-->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/tf.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/tf.css" />
-    <link rel="stylesheet" type="text/css" href="css/style1.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/style1.css" />
+    <meta name="keywords" content="@Model.CompanyDto.CompanyKeyWord" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/tf.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/tf.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style1.css" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/css/style1.css" />
 
 </head>
 
@@ -38,9 +39,9 @@
                     <div class="ab-cebian"></div>
                     <div class="cebian-lianxi">
                         <div><strong>全国服务热线 :</strong></div>
-                        <div><span>0512-57995109</span></div>
-                        <div><strong>TEL:</strong>0512-57995109</div>
-                        <div><strong>QQ:</strong>1927732720</div>
+                        <div><span>@Model.CompanyDto.CompanyPhone</span></div>
+                        <div><strong>联系人:</strong>@Model.CompanyDto.CompanyContactPerson</div>
+                        <div><strong>微信:</strong>@Model.CompanyDto.CompanyWeChat</div>
                     </div>
                 </div>
                 <div class="col-sm-10">
@@ -49,24 +50,34 @@
                     </div>
                     <div class="about-jianjie clearfix">
                         <div class="col-sm-6">
-                            <iframe src="map.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/map.html"></iframe>
+                            <div id="mapContainer" style="width: 100%; height: 240px;border: #2f4056 solid 1px;">
+
+                            </div>
                         </div>
                         <div class="col-sm-6 lianxi">
                             <div>
                                 <strong>地址：</strong>
-                                昆山市前进西路301号
+                                @Model.CompanyDto.CompanyLocation
                             </div>
                             <div>
                                 <strong>电话：</strong>
-                                15995656015
+                                @Model.CompanyDto.CompanyPhone
                             </div>
                             <div>
                                 <strong>联系人：</strong>
-                                温总
+                                @Model.CompanyDto.CompanyContactPerson
+                            </div>
+                            <div>
+                                <strong>微信：</strong>
+                                @Model.CompanyDto.CompanyWeChat
+                            </div>
+                            <div>
+                                <strong>QQ：</strong>
+                                @Model.CompanyDto.CompanyQQ
                             </div>
                             <div>
                                 <strong>邮箱：</strong>
-                                hx_hou@geding.net
+                                @Model.CompanyDto.CompanyEmail
                             </div>
                         </div>
                     </div>
@@ -82,5 +93,16 @@
 <script type="text/javascript" src="js/jquery.min.js" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/main.js" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/js/main.js"></script>
-
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZwMXv7df2oHTRqS33EXtfTlMGpaphY66"></script>
+<script>
+    var map = new BMap.Map("mapContainer");
+    var point = new BMap.Point(@Model.CompanyDto.Lng, @Model.CompanyDto.Lat);
+    var marker = new BMap.Marker(point);        // 创建标注
+    map.addOverlay(marker);                     // 将标注添加到地图中
+    map.centerAndZoom(point, 15);
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+    window.setTimeout(function(){
+        map.panTo(point);
+    }, 500);
+</script>
 </html>

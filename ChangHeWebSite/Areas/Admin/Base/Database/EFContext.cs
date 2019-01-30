@@ -77,11 +77,14 @@ namespace ChangHeWebSite.Areas.Admin.Base.Database
                     CompanyEmail = "公司邮箱",
                     CompanyDescription = "公司描述",
                     CompanyLogo = "/MyPicture.png",
+                    CompanyQQ = "公司QQ",
+                    CompanyWeChat = "公司微信",
+                    CompanyContactPerson = "公司联系人",
                     CompanyKeyWord = "公司关键字",
                     CompanyLocation = "公司位置",
                     CompanyPhone = "公司电话",
-                    Lat = 26.58532,
-                    Lng = 107.98509,
+                    Lat = 26.585302,
+                    Lng = 107.985099,
                     CompanyQRcode = "111"
                 });
                 c.ToTable("CompanyInfo");

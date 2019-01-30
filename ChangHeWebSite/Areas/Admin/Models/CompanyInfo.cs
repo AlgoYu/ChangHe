@@ -42,6 +42,18 @@
         /// </summary>
         public string CompanyEmail { get; set; }
         /// <summary>
+        /// 公司联系人
+        /// </summary>
+        public string CompanyContactPerson { get; set; }
+        /// <summary>
+        /// 公司QQ
+        /// </summary>
+        public string CompanyQQ { get; set; }
+        /// <summary>
+        /// 公司微信
+        /// </summary>
+        public string CompanyWeChat { get; set; }
+        /// <summary>
         /// 公司二维码
         /// </summary>
         public string CompanyQRcode { get; set; }
