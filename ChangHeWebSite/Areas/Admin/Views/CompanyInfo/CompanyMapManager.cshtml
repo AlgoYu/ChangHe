@@ -67,6 +67,7 @@
             function () {
                 layer.confirm('确定把当前坐标点设置为公司位置吗？', {icon: 3, title:'提示'}, function(index){
                     //do something
+                    var load = layer.load();
                     if (currentPoint != null) {
                         $.post('/admin/@Url.Action("UpdateCompanyLocation","CompanyInfo")',
                             {
@@ -75,7 +76,7 @@
                                 if (response.success) {
                                     layer.alert('修改位置成功！'); 
                                 }
-                                layer.close(index);
+                                layer.close(load);
                             });
                     } else {
                         layer.close(index);

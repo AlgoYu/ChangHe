@@ -51,7 +51,8 @@
             , layer = layui.layer;
 
         /*发布按钮监听*/
-        form.on('submit(releaseNews)', function(data) {
+        form.on('submit(releaseNews)', function (data) {
+            var load = layer.load();
             $.post('/admin/@Url.Action("InsertNews","News")', data.field, function(response, status) {
                 if (response.success) {
                     form.val('ReleaseNewsForm',
@@ -64,6 +65,7 @@
                     $("#coverImage").attr('src', '/images/defaultImage.png');
                     layer.alert('发布成功！', { icon: 1 });
                 }
+                layer.close(load);
             });
         });
 

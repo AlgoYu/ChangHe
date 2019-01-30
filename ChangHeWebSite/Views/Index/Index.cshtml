@@ -26,19 +26,25 @@
         <div class="fullwidthbanner-container">
             <div class="fullwidthbanner">
                 <ul>
-                    <li data-transition="3dcurtain-horizontal" data-slotamount="15" data-masterspeed="300">
-                        <img src="images/slide3.jpg" />
+                    @foreach (var cover in Model.Covers)
+                    {
+                        <li data-transition="turnoff" data-slotamount="15" data-masterspeed="300">
+                            <img src="@cover.ImageUrl"/>
+                        </li>
+                    }
+                    @*<li data-transition="3dcurtain-horizontal" data-slotamount="15" data-masterspeed="300">
+                        <img src="images/slide3.jpg"/>
                     </li>
 
                     <li data-transition="papercut" data-slotamount="15" data-masterspeed="300" data-link="#">
-                        <img src="images/slide2.jpg" />
+                        <img src="images/slide2.jpg"/>
                     </li>
                     <li data-transition="turnoff" data-slotamount="15" data-masterspeed="300">
-                        <img src="images/slide1.jpg" />
+                        <img src="images/slide1.jpg"/>
                     </li>
                     <li data-transition="turnoff" data-slotamount="15" data-masterspeed="300">
-                        <img src="images/slide4.jpg" />
-                    </li>
+                        <img src="images/slide4.jpg"/>
+                    </li>*@
 
                 </ul>
             </div>
@@ -216,7 +222,20 @@
 
             <div class="row index-n">
                 <div class="index-news one clearfix">
-                    <div class="col-md-3 col-sm-6">
+                    @foreach (var news in Model.Newses)
+                    {
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-index-img">
+                                <a href="news-xq.html">
+                                    <img src="@news.NewsCover"/>
+                                    <h3>@news.NewsTitle</h3>
+                                    <time>@news.NewsCreateDate</time>
+                                    <p>@news.NewsContent</p>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    @*<div class="col-md-3 col-sm-6">
                         <div class="service-index-img">
                             <a href="news-xq.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news-xq.html">
                                 <img src="images/ibvz.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/ibvz.jpg" />
@@ -255,7 +274,7 @@
                                 <p>物流公司浅析包装在物流运输中的五点作用：包装是物流的起点，而包装的合理化、低成本更是现代物流最基础的物质保证。北京物流公司专家为你介绍一下，包装在物流业务时所起到的五点作用，从而提高竞争力，以优质的服务获得用户认可。</p>
                             </a>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
                 <div class="index-pro-gd">
                     <a href="news.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news.html">查看更多</a>

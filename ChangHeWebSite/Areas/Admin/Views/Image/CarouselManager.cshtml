@@ -1,0 +1,195 @@
+﻿@model ChangHeWebSite.Areas.Admin.Models.Dto.BackstageDto
+@{
+    Layout = null;
+}
+
+<div class="layui-carousel margin-auto" id="imageContainer">
+    <div carousel-item>
+        @foreach (var cover in Model.Covers)
+        {
+            <div><img src="@cover.ImageUrl" /></div>
+        }
+    </div>
+</div>
+<!--头部工具栏 start-->
+<script type="text/html" id="top-tool-bar">
+    <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-sm" lay-event="add">
+            <i class="layui-icon">&#xe654;</i>
+        </button>
+        <button class="layui-btn layui-btn-sm" lay-event="delete">
+            <i class="layui-icon">&#xe640;</i>
+        </button>
+        <button class="layui-btn layui-btn-sm" lay-event="refresh">
+            <i class="layui-icon">&#xe666;</i>
+        </button>
+    </div>
+    
+</script>
+<!--头部工具栏 end-->
+<!--列工具条 start-->
+<script type="text/html" id="column-tool-bar">
+    <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-sm" lay-event="update"><i class="layui-icon">&#xe642;</i></button>
+        <button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delete"><i class="layui-icon">&#xe640;</i></button>
+    </div>
+</script>
+<!--列工具条 end-->
+<div class="cover-table-container">
+    <table id="CoverTable" lay-filter="CoverFilter"></table>
+</div>
+<script>
+    layui.use(['table', 'jquery', 'layer', 'element', 'carousel'],
+    function() {
+        var $ = layui.$
+            , table = layui.table
+            , element = layui.element
+            ,carousel = layui.carousel;
+        //建造实例
+        carousel.render({
+            elem: '#imageContainer'
+            , width: '1120px' //设置容器宽度
+            , height: '280px'
+            , arrow: 'always' //始终显示箭头
+            //,anim: 'updown' //切换动画方式
+        });
+        //数据表渲染
+        table.render({
+            elem: '#CoverTable',
+            height: 450,
+            url: '/Admin/@Url.Action("SelectCover", "Image")',
+            page: true,
+            toolbar: "#top-tool-bar",
+            cols: [
+                [
+                    { type: 'checkbox', title: '选择框' }, { field: 'id', title: 'ID', sort: true, align: 'center' },
+                    { field: 'imageUrl', title: '图片链接', align: 'center' },
+                    { toolbar: '#column-tool-bar', align: 'center' }
+                ]
+            ],
+            response: {
+                statusName: 'status' //规定数据状态的字段名称，默认：code
+                ,
+                statusCode: 0 //规定成功的状态码，默认：0
+                ,
+                msgName: 'message' //规定状态信息的字段名称，默认：msg
+                ,
+                countName: 'total' //规定数据总数的字段名称，默认：count
+                ,
+                dataName: 'data' //规定数据列表的字段名称，默认：data
+            }
+        });
+
+        //头部工具栏监听
+        table.on('toolbar(CoverFilter)', function(obj) {
+            switch (obj.event) {
+                case 'add':
+                    layer.prompt({
+                        formType: 0, //输入框类型，支持0（文本）默认1（密码）2（多行文本）
+                        value: '',
+                        title: '上传图片链接',
+                        area: ['800px', '350px'] //自定义文本域宽高
+                    }, function (value, index, elem) {
+                        var load = layer.load();
+                        $.post('/admin/@Url.Action("InsertCover","Image")',
+                            {
+                                imageUrl: value
+                            }, function(response,status) {
+                                if (response.success) {
+                                    layer.msg("添加成功！");
+                                    table.reload('CoverTable'); //表格重载
+                                } else {
+                                    layer.msg("添加失败！");
+                                }
+                                layer.close(load);
+                            });
+                        layer.close(index);
+                    });
+                    break;
+                case 'delete':
+                    var selects = table.checkStatus('CoverTable');
+                    console.log(selects);
+                    if (selects.data.length <= 0) {
+                        layer.msg("您当前还未选中！");
+                    } else {
+                        layer.confirm('确定删除选中的新闻分类吗？', {icon: 3, title:'批量删除分类'}, function(index){
+                            //do something
+                            var load = layer.load();
+                            $.post('/admin/@Url.Action("DeleteCover","Image")',
+                                {
+                                    covers: selects.data
+                                }, function(response,status) {
+                                    if (response.success) {
+                                        layer.msg("删除成功！");
+                                        table.reload('CoverTable'); //表格重载
+                                    } else {
+                                        layer.msg("删除失败！");
+                                    }
+                                    layer.close(load);
+                                });
+                            layer.close(index);
+                        });
+                    }
+                    break;
+                case 'refresh':
+                    table.reload('CoverTable',
+                        {
+                            url: '/Admin/@Url.Action("SelectCover", "Image")'
+                        }); 
+                break;
+            }
+        });
+
+        //列工具条监听
+        table.on('tool(CoverFilter)',
+            function(obj) {
+                console.log(obj);
+                switch (obj.event) {
+                    case 'delete':
+                        layer.confirm('确定删除这个新闻分类吗？', {icon: 3, title:'删除分类'}, function(index){
+                            //do something
+                            var load = layer.load();
+                            $.post('/admin/@Url.Action("DeleteCover","Image")',
+                                {
+                                    covers: [obj.data]
+                                }, function(response,status) {
+                                    if (response.success) {
+                                        layer.msg("删除成功！");
+                                        table.reload('CoverTable'); //表格重载
+                                    } else {
+                                        layer.msg("删除失败！");
+                                    }
+                                    layer.close(load);
+                                });
+                            layer.close(index);
+                        });
+                        break;
+                    case 'update':
+                        //更新新闻
+                        layer.prompt({
+                            formType: 0, //输入框类型，支持0（文本）默认1（密码）2（多行文本）
+                            value: obj.data.imageUrl,
+                            title: '更新分类',
+                            area: ['800px', '350px'] //自定义文本域宽高
+                        }, function (value, index, elem) {
+                            var load = layer.load();
+                            $.post('/admin/@Url.Action("UpdateCover","Image")',
+                                {
+                                    id: obj.data.id,
+                                    imageUrl: value
+                                }, function(response,status) {
+                                    if (response.success) {
+                                        layer.msg("更新成功！");
+                                        table.reload('CoverTable'); //表格重载
+                                    } else {
+                                        layer.msg("更新失败！");
+                                    }
+                                    layer.close(load);
+                                });
+                            layer.close(index);
+                        });
+                        break;
+                }
+            });
+    });
+</script>

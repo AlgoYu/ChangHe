@@ -19,6 +19,8 @@ namespace ChangHeWebSite.Areas.Admin.Base
                 mapper.CreateMap<NewsClassification, FrontNewsClassificationDto>();
                 /*前端新闻数据传输对象映射*/
                 mapper.CreateMap<News, FrontNewsDto>();
+                /*前端图片数据传输对象映射*/
+                mapper.CreateMap<Image, FrontImageDto>();
 
 
 

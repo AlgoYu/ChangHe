@@ -4,7 +4,6 @@
     Layout = null;
 }
 
-<!DOCTYPE html>
 <div class="news-form-container layui-form-pane">
     <form class="layui-form news-form margin-auto content-center" action="" lay-filter="UpdateNewsForm">
         <div class="layui-form-item">
@@ -60,12 +59,14 @@
             , upload = layui.upload
             , layer = layui.layer;
 
-        /*发布按钮监听*/
-        form.on('submit(UpdateNews)', function(data) {
+        /*保存按钮监听*/
+        form.on('submit(UpdateNews)', function (data) {
+            var load = layer.load();
             $.post('/admin/@Url.Action("UpdateNews","News")', data.field, function(response, status) {
                 if (response.success) {
                     layer.alert('修改成功！', { icon: 1 });
                 }
+                layer.close(load);
             });
         });
 

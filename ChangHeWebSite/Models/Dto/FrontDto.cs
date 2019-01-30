@@ -28,5 +28,9 @@ namespace ChangHeWebSite.Models.Dto
         /// 当前新闻分类
         /// </summary>
         public int? CurrentNewsClassification { get; set; }
+        /// <summary>
+        /// 封面图片
+        /// </summary>
+        public List<FrontImageDto> Covers { get; set; }
     }
 }

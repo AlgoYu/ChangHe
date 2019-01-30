@@ -39,7 +39,7 @@
 </script>
 <!--列工具条 end-->
 <div class="news-table-container">
-    <table id="NewsTable" lay-filter="NewsFilter"></table>
+    <table id="NewsTable" lay-filter="CoverFilter"></table>
 </div>
 <script>
     layui.use(['table', 'jquery', 'layer','element'],
@@ -80,7 +80,7 @@
         });
 
         //头部工具栏监听
-        table.on('toolbar(NewsFilter)', function(obj) {
+        table.on('toolbar(CoverFilter)', function(obj) {
             switch (obj.event) {
                 case 'add':
                     layer.prompt({
@@ -88,7 +88,8 @@
                         value: '',
                         title: '新增分类',
                         area: ['800px', '350px'] //自定义文本域宽高
-                    }, function(value, index, elem) {
+                    }, function (value, index, elem) {
+                        var load = layer.load();
                         $.post('/admin/@Url.Action("InsertNews","News")',
                             {
                                 NewsName: value
@@ -99,6 +100,7 @@
                                 } else {
                                     layer.msg("添加失败！");
                                 }
+                                layer.close(load);
                             });
                         layer.close(index);
                     });
@@ -111,6 +113,7 @@
                     } else {
                         layer.confirm('确定删除选中的新闻分类吗？', {icon: 3, title:'批量删除分类'}, function(index){
                             //do something
+                            var load = layer.load();
                             $.post('/admin/@Url.Action("DeleteNewses","News")',
                                 {
                                     newses: selects.data
@@ -121,6 +124,7 @@
                                     } else {
                                         layer.msg("删除失败！");
                                     }
+                                    layer.close(load);
                                 });
                             layer.close(index);
                         });
@@ -145,13 +149,14 @@
         });
 
         //列工具条监听
-        table.on('tool(NewsFilter)',
+        table.on('tool(CoverFilter)',
             function(obj) {
                 console.log(obj);
                 switch (obj.event) {
                     case 'delete':
                         layer.confirm('确定删除这个新闻分类吗？', {icon: 3, title:'删除分类'}, function(index){
                             //do something
+                            var load = layer.load();
                             $.post('/admin/@Url.Action("DeleteNewses","News")',
                                 {
                                     newses: [obj.data]
@@ -162,12 +167,14 @@
                                     } else {
                                         layer.msg("删除失败！");
                                     }
+                                    layer.close(load);
                                 });
                             layer.close(index);
                         });
                         break;
                     case 'update':
                         //更新新闻
+                        var load = layer.load();
                         $.get('/Admin/@Url.Action("EditNews","News")?id=' + obj.data.id , function(response,status) {
                             element.tabAdd('tabs',
                                 {
@@ -176,6 +183,7 @@
                                     id: 'update-news'
                                 });
                             element.tabChange('tabs', 'update-news');
+                            layer.close(load);
                         });
                         break;
                 }
