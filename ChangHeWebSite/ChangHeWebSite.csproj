@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <None Include="Areas\Admin\Views\News\ReleaseNews.cshtml" />
-    <None Include="Views\News\detail.cshtml" />
+    <None Include="Views\News\Detail.cshtml" />
     <None Include="wwwroot\layui245\font\iconfont.svg" />
     <None Include="wwwroot\layui245\layui.all.js" />
     <None Include="wwwroot\layui245\layui.js" />

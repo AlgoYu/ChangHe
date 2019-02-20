@@ -222,59 +222,59 @@
 
             <div class="row index-n">
                 <div class="index-news one clearfix">
-                    @foreach (var news in Model.Newses)
+                    @for (int i = 0; i < Model.Newses.Count && i < 4; i++)
                     {
                         <div class="col-md-3 col-sm-6">
                             <div class="service-index-img">
-                                <a href="news-xq.html">
-                                    <img src="@news.NewsCover"/>
-                                    <h3>@news.NewsTitle</h3>
-                                    <time>@news.NewsCreateDate</time>
-                                    <p>@news.NewsContent</p>
+                                <a href="@Url.Action("Detail", "News")?id=@Model.Newses[i].Id">
+                                    <img src="@Model.Newses[i].NewsCover" />
+                                    <h3>@Model.Newses[i].NewsTitle</h3>
+                                    <time>@Model.Newses[i].NewsCreateDate</time>
+                                    <p>@Model.Newses[i].NewsContent</p>
                                 </a>
                             </div>
                         </div>
                     }
                     @*<div class="col-md-3 col-sm-6">
-                        <div class="service-index-img">
-                            <a href="news-xq.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news-xq.html">
-                                <img src="images/ibvz.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/ibvz.jpg" />
-                                <h3>影响我国危化品物流运输的因素</h3>
-                                <time>2017-06-21</time>
-                                <p>危化品物流运输爆炸，导致了悲剧的发生，通过悲剧，我们也看到了危化品物流运输的安全问题，目前我国的危化品物流行业的现状是小，散，乱，差的，导致这些现象的因素是很多的，以下原因导致我国危化品物流运输的现状。​</p>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="service-index-img">
-                            <a href="news-xq2.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news-xq2.html">
-                                <img src="images/j6x7.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/j6x7.jpg" />
-                                <h3>现代物流的几个特征</h3>
-                                <time>2017-06-21</time>
-                                <p>如今是电子商务时代，现代物流的服务的核心目标，就是在物流过程中，以最小的综合成本来满足顾客的需求，现代物流存在以下特征的。</p>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="service-index-img">
-                            <a href="news-xq3.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news-xq3.html">
-                                <img src="images/3l5t.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/3l5t.jpg" />
-                                <h3>智能物流打造物流服务新高度</h3>
-                                <time>2017-06-21</time>
-                                <p>随着物流的逐步发展，各种各样得创新规模都相距出现，而智能物流，就是其中之一。</p>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="service-index-img">
-                            <a href="news-xq4.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news-xq4.html">
-                                <img src="images/wkoc.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/wkoc.jpg" />
-                                <h3>物流公司浅析包装在物流运输中的五点作用</h3>
-                                <time>2017-06-21</time>
-                                <p>物流公司浅析包装在物流运输中的五点作用：包装是物流的起点，而包装的合理化、低成本更是现代物流最基础的物质保证。北京物流公司专家为你介绍一下，包装在物流业务时所起到的五点作用，从而提高竞争力，以优质的服务获得用户认可。</p>
-                            </a>
-                        </div>
-                    </div>*@
+            <div class="service-index-img">
+                <a href="news-xq.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news-xq.html">
+                    <img src="images/ibvz.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/ibvz.jpg" />
+                    <h3>影响我国危化品物流运输的因素</h3>
+                    <time>2017-06-21</time>
+                    <p>危化品物流运输爆炸，导致了悲剧的发生，通过悲剧，我们也看到了危化品物流运输的安全问题，目前我国的危化品物流行业的现状是小，散，乱，差的，导致这些现象的因素是很多的，以下原因导致我国危化品物流运输的现状。​</p>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="service-index-img">
+                <a href="news-xq2.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news-xq2.html">
+                    <img src="images/j6x7.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/j6x7.jpg" />
+                    <h3>现代物流的几个特征</h3>
+                    <time>2017-06-21</time>
+                    <p>如今是电子商务时代，现代物流的服务的核心目标，就是在物流过程中，以最小的综合成本来满足顾客的需求，现代物流存在以下特征的。</p>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="service-index-img">
+                <a href="news-xq3.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news-xq3.html">
+                    <img src="images/3l5t.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/3l5t.jpg" />
+                    <h3>智能物流打造物流服务新高度</h3>
+                    <time>2017-06-21</time>
+                    <p>随着物流的逐步发展，各种各样得创新规模都相距出现，而智能物流，就是其中之一。</p>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="service-index-img">
+                <a href="news-xq4.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news-xq4.html">
+                    <img src="images/wkoc.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/wkoc.jpg" />
+                    <h3>物流公司浅析包装在物流运输中的五点作用</h3>
+                    <time>2017-06-21</time>
+                    <p>物流公司浅析包装在物流运输中的五点作用：包装是物流的起点，而包装的合理化、低成本更是现代物流最基础的物质保证。北京物流公司专家为你介绍一下，包装在物流业务时所起到的五点作用，从而提高竞争力，以优质的服务获得用户认可。</p>
+                </a>
+            </div>
+        </div>*@
                 </div>
                 <div class="index-pro-gd">
                     <a href="news.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news.html">查看更多</a>
@@ -288,7 +288,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <p class="lianxi-p"><span>联系方式</span></p>
-                    <img src="@Model.CompanyDto.CompanyQRcode" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/images/dai.jpg" />
+                    <img src="@Model.CompanyDto.CompanyQRcode" style="width: 200px"/>
                     <p class="content-center"><i></i><strong>地址:</strong>@Model.CompanyDto.CompanyLocation</p>
                     <p class="content-center"><i></i><strong>邮箱:</strong>@Model.CompanyDto.CompanyEmail</p>
                     <p class="content-center"><i></i><strong>电话:</strong>@Model.CompanyDto.CompanyPhone</p>

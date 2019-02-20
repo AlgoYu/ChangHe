@@ -31,6 +31,6 @@ namespace ChangHeWebSite.Models.Dto
         /// <summary>
         /// 新闻创建时间
         /// </summary>
-        public string NewsCreateDate { get; set; } = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+        public DateTime NewsCreateDate { get; set; }
     }
 }

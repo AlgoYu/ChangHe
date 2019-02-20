@@ -1,6 +1,9 @@
-﻿using AutoMapper;
+﻿
+
+using AutoMapper;
 using ChangHeWebSite.Areas.Admin.Models;
 using ChangHeWebSite.Areas.Admin.Models.Dto;
+using ChangHeWebSite.lib;
 using ChangHeWebSite.Models.Dto;
 
 namespace ChangHeWebSite.Areas.Admin.Base
@@ -28,6 +31,9 @@ namespace ChangHeWebSite.Areas.Admin.Base
                 mapper.CreateMap<News, NewsTableDto>()
                     .ForMember(dest => dest.NewsClassificationName,
                         opt => opt.MapFrom(src => src.NewsClassification.NewsClassificationName));
+                /*后台留言管理数据传输对象*/
+                mapper.CreateMap<Message, MessageDto>().ForMember(dest => dest.IsRead,
+                    opt => opt.MapFrom(src => src.IsRead.GetDescription()));
             });
         }
     }
