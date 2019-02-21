@@ -226,7 +226,7 @@
                     {
                         <div class="col-md-3 col-sm-6">
                             <div class="service-index-img">
-                                <a href="@Url.Action("Detail", "News")?id=@Model.Newses[i].Id">
+                                <a href="@Url.Action("Detail", "News")?newsId=@Model.Newses[i].Id">
                                     <img src="@Model.Newses[i].NewsCover" />
                                     <h3>@Model.Newses[i].NewsTitle</h3>
                                     <time>@Model.Newses[i].NewsCreateDate</time>
@@ -277,7 +277,7 @@
         </div>*@
                 </div>
                 <div class="index-pro-gd">
-                    <a href="news.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news.html">查看更多</a>
+                    <a href="@Url.Action("News","News")">查看更多</a>
                 </div>
 
             </div>

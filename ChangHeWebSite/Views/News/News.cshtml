@@ -1,4 +1,5 @@
-﻿@model ChangHeWebSite.Models.Dto.FrontDto
+﻿@using ChangHeWebSite.Areas.Admin.Controllers
+@model ChangHeWebSite.Models.Dto.FrontDto
 @{
     Layout = null;
 }
@@ -42,7 +43,7 @@
                         <ul id="newsClassificationList">
                             @foreach (var newsClassification in Model.NewsClassifications)
                             {
-                                <li><a href="javascript:;" data-newsclassificationID="@newsClassification.Id">@newsClassification.NewsClassificationName</a></li>
+                                <li><a href="@Url.Action("News","News")?newsClassificationId=@newsClassification.Id" data-newsclassificationID="@newsClassification.Id">@newsClassification.NewsClassificationName</a></li>
                             }
                         </ul>
                     </div>
@@ -69,7 +70,9 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-10">
-                                    <h3><a href="@Url.Action("Detail","News")?id=@news.Id">@news.NewsTitle</a></h3>
+                                    <h3>
+                                        <a href='@Url.Action("Detail", "News")?newsId=@news.Id@( Model.CurrentNewsClassification != null ? "&newsClassificationId=" + Model.CurrentNewsClassification : "")'>@news.NewsTitle</a>
+                                    </h3>
                                     <p>@news.NewsContent</p>
                                 </div>
                             </div>
@@ -146,7 +149,7 @@
         //执行一个laypage实例
         var page = laypage.render({
             elem: 'pages' //注意，这里的 test1 是 ID，不用加 # 号
-            , count: 50 //数据总数，从服务端得到
+            , count: @Model.Newses.Count //数据总数，从服务端得到
             , curr: 1
             , jump: function (obj, first) {
                 
@@ -166,23 +169,6 @@
                         });
                 }
             }
-        });
-
-        /*分页点击事件*/
-        $("#newsClassificationList").click(function (obj) {
-            var index = layer.load();
-            $.post('@Url.Action("ResponseNewses","News")',
-                {
-                    page: obj.curr,
-                    limit: obj.limit,
-                    newsClassificationId: obj.target.attributes[1].value
-                }, function (response, status) {
-                    layer.close(index);
-                    $("#newContent").empty();
-                    response.data.forEach(function(data) {
-                        $("#newContent").append('<div class="clearfix news-first"><div class="col-sm-2"><div class="fangkuai"><div class="fangkuai1">19</div><div class="fangkuai2">2017-07</div></div></div><div class="col-sm-10"><h3><a href="@Url.Action("Detail","News")?id=' + data.id + '">' + data.newsTitle + '</a></h3><p>' + data.newsContent+'</p></div></div>');
-                    });
-                });
         });
     });
 </script>

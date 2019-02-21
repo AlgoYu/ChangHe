@@ -32,5 +32,13 @@ namespace ChangHeWebSite.Models.Dto
         /// 封面图片
         /// </summary>
         public List<FrontImageDto> Covers { get; set; }
+        /// <summary>
+        /// 上一个新闻
+        /// </summary>
+        public News PreviousNews { get; set; }
+        /// <summary>
+        /// 下一个新闻
+        /// </summary>
+        public News NextNews { get; set; }
     }
 }

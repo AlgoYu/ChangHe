@@ -21,12 +21,16 @@ namespace ChangHeWebSite.Controllers
             _db = db;
         }
 
-        public IActionResult News()
+        public IActionResult News(int? newsClassificationId)
         {
             FrontDto dto = new FrontDto();
             dto.CompanyDto = Mapper.Map<FrontCompanyInfoDto>(_db.Company.FirstOrDefault());
             dto.NewsClassifications = _db.NewsClassifications.ToList();
-            dto.Newses = _db.Newses.Take(10).ToList();
+            if (newsClassificationId!=null)
+            {
+                dto.CurrentNewsClassification = newsClassificationId;
+            }
+            dto.Newses = _db.Newses.WhereIf(newsClassificationId != null,n=>n.NewsClassificationId == newsClassificationId).Take(10).ToList();
             return View(dto);
         }
         /// <summary>
@@ -43,14 +47,38 @@ namespace ChangHeWebSite.Controllers
             response.Data = datas.Skip((request.Page - 1) * request.Limit).Take(request.Limit).ToList();
             return Json(response);
         }
-
-        public IActionResult Detail(int id)
+        /// <summary>
+        /// 新闻详情的数据返回
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public IActionResult Detail(FrontNewsDetailRequestDto request)
         {
             FrontDto dto = new FrontDto();
             dto.CompanyDto = Mapper.Map<FrontCompanyInfoDto>(_db.Company.FirstOrDefault());
             dto.NewsClassifications = _db.NewsClassifications.ToList();
-            dto.NewsDto = Mapper.Map<FrontNewsDto>(_db.Newses.SingleOrDefault(x => x.Id == id));
-            _db.Newses.Where(n => n.NewsClassificationId == id).ToList();
+            dto.CurrentNewsClassification = request.NewsClassificationId;
+            var datas = _db.Newses.WhereIf(request.NewsClassificationId != null,
+                n => n.NewsClassificationId == request.NewsClassificationId).ToList();
+            //dto.NewsDto = Mapper.Map<FrontNewsDto>(_db.Newses.SingleOrDefault(x => x.Id == id));
+            /*找出上一篇文章和下一篇文章*/
+            for (int j = 0; j < datas.Count; j++)
+            {
+                if (datas[j].Id == request.NewsId)
+                {
+                    dto.NewsDto = Mapper.Map<FrontNewsDto>(datas[j]);
+                    if (j>0)
+                    {
+                        dto.PreviousNews = datas[j - 1];
+                    }
+
+                    if (j < datas.Count-1)
+                    {
+                        dto.NextNews = datas[j + 1];
+                    }
+                    break;
+                }
+            }
             return View(dto);
         }
     }

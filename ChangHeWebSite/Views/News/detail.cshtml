@@ -59,14 +59,30 @@
                     <div class="news-list-xq clearfix">
                         <div class="clearfix">
                             <div class="col-sm-12">
-                                <h4>影响我国危化品物流运输的因素</h4>
+                                <h4>@Model.NewsDto.NewsTitle</h4>
                                 <div class="author"><span>作者:@Model.NewsDto.NewsAuthor</span><span>发布时间: @Model.NewsDto.NewsCreateDate.ToString("yyyy-MM-dd hh:mm:ss")</span></div>
                                 <div class="content">
                                     @Model.NewsDto.NewsContent
                                 </div>
                                 <div>
-                                    <div><a href="">上一篇：</a></div>
-                                    <div><a href="news-xq2.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news-xq2.html">下一篇：现代物流的几个特征</a></div>
+                                    @{
+                                        if (Model.PreviousNews != null)
+                                        {
+                                            <div><a href='@Url.Action("Detail", "News")?newsId=@Model.PreviousNews.Id@( Model.CurrentNewsClassification != null ? "&newsClassificationId=" + Model.CurrentNewsClassification : ""):""'>上一篇：@Model.PreviousNews.NewsTitle</a></div>
+                                        }
+                                        else
+                                        {
+                                            <div><a href="javascript:;">上一篇：暂无更多</a></div>
+                                        }
+                                        if (Model.NextNews != null)
+                                        {
+                                            <div><a href='@Url.Action("Detail","News")?newsId=@Model.NextNews.Id@( Model.CurrentNewsClassification != null ? "&newsClassificationId=" + Model.CurrentNewsClassification : ""):""'>上一篇：@Model.NextNews.NewsTitle</a></div>
+                                        }
+                                        else
+                                        {
+                                            <div><a href="">下一篇：暂无更多</a></div>
+                                        }
+                                    }
                                 </div>
                             </div>
                         </div>
