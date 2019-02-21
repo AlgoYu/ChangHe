@@ -135,9 +135,9 @@
                     <div>
                         <h3>公司介绍</h3>
                         <p>COMPANY INTRODUCTION</p>
-                        <p>昆山海运物流有限公司成立于1985年，是国务院国资委监管的大型企业集团——某某物流集团有限公司的成员企业。公司定位于供应链物流管理一体化服务提供商，提供铁路和公路运输、公路-铁路-水运联运、国际货运代理、仓储、配送、生产和销售的供应链管理、供应链金融等综合物流服务，在烟酒快速消费品、装备制造业等行业领域具备了成熟的服务能力和标准体系，形成了独特的竞争优势。​</p>
+                        <p>@(Model.CompanyDto.CompanyDescription.Length>200?Model.CompanyDto.CompanyDescription.Substring(0,225)+"……":Model.CompanyDto.CompanyDescription)</p>
                         <div class="index-ab-gd">
-                            <a href="">查看更多</a>
+                            <a href="@Url.Action("About","About")">查看更多</a>
                         </div>
                     </div>
                 </div>
