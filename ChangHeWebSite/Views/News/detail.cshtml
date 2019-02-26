@@ -54,7 +54,7 @@
                 </div>
                 <div class="col-sm-10">
                     <div class="bread-xie">
-                        <a href="index.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/index.html">首页</a>>><a href="news.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news.html">@Model.NewsDto.NewsTitle</a>
+                        <a href="@Url.Action("Index","Index")">首页</a>>><a href="@Url.Action("News","News")">新闻资讯</a>>><a href="javascript:;">@Model.NewsDto.NewsTitle</a>
                     </div>
                     <div class="news-list-xq clearfix">
                         <div class="clearfix">
@@ -62,13 +62,13 @@
                                 <h4>@Model.NewsDto.NewsTitle</h4>
                                 <div class="author"><span>作者:@Model.NewsDto.NewsAuthor</span><span>发布时间: @Model.NewsDto.NewsCreateDate.ToString("yyyy-MM-dd hh:mm:ss")</span></div>
                                 <div class="content">
-                                    @Model.NewsDto.NewsContent
+                                    @Html.Raw(Model.NewsDto.NewsContent)
                                 </div>
                                 <div>
                                     @{
                                         if (Model.PreviousNews != null)
                                         {
-                                            <div><a href='@Url.Action("Detail", "News")?newsId=@Model.PreviousNews.Id@( Model.CurrentNewsClassification != null ? "&newsClassificationId=" + Model.CurrentNewsClassification : ""):""'>上一篇：@Model.PreviousNews.NewsTitle</a></div>
+                                            <div><a href='@Url.Action("Detail", "News")?newsId=@Model.PreviousNews.Id@( Model.CurrentNewsClassification != null ? "&newsClassificationId=" + Model.CurrentNewsClassification : "")'>上一篇：@Model.PreviousNews.NewsTitle</a></div>
                                         }
                                         else
                                         {
@@ -76,7 +76,7 @@
                                         }
                                         if (Model.NextNews != null)
                                         {
-                                            <div><a href='@Url.Action("Detail","News")?newsId=@Model.NextNews.Id@( Model.CurrentNewsClassification != null ? "&newsClassificationId=" + Model.CurrentNewsClassification : ""):""'>上一篇：@Model.NextNews.NewsTitle</a></div>
+                                            <div><a href='@Url.Action("Detail","News")?newsId=@Model.NextNews.Id@( Model.CurrentNewsClassification != null ? "&newsClassificationId=" + Model.CurrentNewsClassification : "")'>上一篇：@Model.NextNews.NewsTitle</a></div>
                                         }
                                         else
                                         {

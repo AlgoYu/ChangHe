@@ -76,6 +76,7 @@ namespace ChangHeWebSite.Controllers
                     {
                         dto.NextNews = datas[j + 1];
                     }
+
                     break;
                 }
             }

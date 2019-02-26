@@ -135,7 +135,7 @@
                     <div>
                         <h3>公司介绍</h3>
                         <p>COMPANY INTRODUCTION</p>
-                        <p>@(Model.CompanyDto.CompanyDescription.Length>200?Model.CompanyDto.CompanyDescription.Substring(0,225)+"……":Model.CompanyDto.CompanyDescription)</p>
+                        <p>@Html.Raw(Model.CompanyDto.CompanyDescription)</p>
                         <div class="index-ab-gd">
                             <a href="@Url.Action("About","About")">查看更多</a>
                         </div>

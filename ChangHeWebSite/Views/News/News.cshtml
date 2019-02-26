@@ -24,14 +24,14 @@
     @Html.Partial("_Header");
     <!--头部视图渲染end-->
     <div id="wrapper" class="about-page">
-        <img src="/images/7htc.jpg" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/7htc.jpg" class="about-page-img" />
+        <img src="/images/7htc.jpg" class="about-page-img" />
     </div>
     <div class="about-us">
         <div class="container">
             <div class="row">
                 <div class="col-sm-2">
                     <div class="cebian">
-                        <img src="/images/ww.png" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu//images/ww.png" />
+                        <img src="/images/ww.png" />
                         <div>
                             <div></div>
                             <h2>新闻动态</h2>
@@ -57,23 +57,24 @@
                 </div>
                 <div class="col-sm-10">
                     <div class="bread-xie">
-                        <a href="index.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/index.html">首页</a>>><a href="news.html" tppabs="http://www.17sucai.com/preview/850167/2017-12-22/kunshanwuliu/news.html">新闻资讯</a>
+                        <a href="@Url.Action("Index","Index")">首页</a>>><a href="@Url.Action("News","News")">新闻资讯</a>
                     </div>
                     <div class="news-list clearfix" id="newContent">
                         @foreach (var news in Model.Newses)
                         {
                             <div class="clearfix news-first">
                                 <div class="col-sm-2">
-                                    <div class="fangkuai">
+                                    @*<div class="fangkuai">
                                         <div class="fangkuai1">19</div>
                                         <div class="fangkuai2">2017-07</div>
-                                    </div>
+                                    </div>*@
+                                    <img src="@news.NewsCover" style="width: 100%"/>
                                 </div>
                                 <div class="col-sm-10">
                                     <h3>
                                         <a href='@Url.Action("Detail", "News")?newsId=@news.Id@( Model.CurrentNewsClassification != null ? "&newsClassificationId=" + Model.CurrentNewsClassification : "")'>@news.NewsTitle</a>
                                     </h3>
-                                    <p>@news.NewsContent</p>
+                                    <p>@Html.Raw(news.NewsContent)</p>
                                 </div>
                             </div>
                         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ChangHeWebSite.Areas.Admin.Base;
@@ -11,6 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
+using UEditor.Core;
 
 namespace ChangHeWebSite
 {
@@ -33,6 +36,11 @@ namespace ChangHeWebSite
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });*/
 
+
+            /*增加UEditor服务*/
+            services.AddUEditorService();
+
+            services.AddMvc();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             /*添加Session服务*/
@@ -61,6 +69,18 @@ namespace ChangHeWebSite
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseSession(); //使用Session
+
+            /*百度UEditor*/
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "upload")),
+                RequestPath = "/upload",
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=36000");
+                }
+            });
 
             app.UseMvc(routes =>
             {

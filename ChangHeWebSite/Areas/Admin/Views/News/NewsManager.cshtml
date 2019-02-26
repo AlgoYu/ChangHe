@@ -174,16 +174,22 @@
                         break;
                     case 'update':
                         //更新新闻
-                        var load = layer.load();
-                        $.get('/Admin/@Url.Action("EditNews","News")?id=' + obj.data.id , function(response,status) {
-                            element.tabAdd('tabs',
-                                {
-                                    title: '更新新闻',
-                                    content: response,
-                                    id: 'update-news'
-                                });
-                            element.tabChange('tabs', 'update-news');
-                            layer.close(load);
+                        layer.confirm('编辑新闻之前请确定已保存其他新闻！', {icon: 3, title:'编辑新闻'}, function(index){
+                            if ($("[lay-id='update-news']").length != 0) {   //如果没有这个选项卡则添加并切换到这个选项卡
+                                element.tabDelete('tabs', 'update-news');
+                            }
+                            var load = layer.load();
+                            $.get('/Admin/@Url.Action("EditNews","News")?id=' + obj.data.id , function(response,status) {
+                                element.tabAdd('tabs',
+                                    {
+                                        title: '更新新闻',
+                                        content: response,
+                                        id: 'update-news'
+                                    });
+                                element.tabChange('tabs', 'update-news');
+                                layer.close(load);
+                            });
+                            layer.close(index);
                         });
                         break;
                 }

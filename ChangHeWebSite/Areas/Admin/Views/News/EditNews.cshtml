@@ -40,15 +40,17 @@
             </div>
         </div>
         <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">新闻内容：</label>
-            <textarea name="newsContent" required lay-verify="required" placeholder="请输入新闻内容" class="layui-textarea news-content">@Model.News.NewsContent</textarea>
+            <!-- 加载编辑器的容器 -->
+            <script id="news-edit-container" name="newsContent" type="text/plain" class="ueditor-style">
+                @Html.Raw(Model.News.NewsContent)
+            </script>
         </div>
         <div class="layui-form-item layui-form-text">
             <button type="button" class="layui-btn layui-btn-radius layui-btn-lg" lay-submit lay-filter="UpdateNews">保存修改</button>
             <!--隐藏字段: 新闻封面-->
-            <input type="hidden" name="newsCover" lay-verify="newsCover" value="@Model.News.NewsCover"/>
+            <input type="hidden" name="newsCover" lay-verify="newsCover" value="@Model.News.NewsCover" />
             <!--隐藏字段: Id-->
-            <input type="hidden" name="id" lay-verify="required" value="@Model.News.Id"/>
+            <input type="hidden" name="id" lay-verify="required" value="@Model.News.Id" />
         </div>
     </form>
 </div>
@@ -58,6 +60,11 @@
             , form = layui.form
             , upload = layui.upload
             , layer = layui.layer;
+
+        /*先删除以前的渲染*/
+        UE.delEditor("news-edit-container");
+        /*渲染富文本编辑器*/
+        var updateNewsContent = UE.getEditor('news-edit-container');
 
         /*保存按钮监听*/
         form.on('submit(UpdateNews)', function (data) {

@@ -23,7 +23,7 @@ namespace ChangHeWebSite.Areas.Admin.Controllers
 
         public NewsController(EFContext db)
         {
-            _db = db;
+            this._db = db;
         }
 
         /// <summary>
@@ -107,6 +107,7 @@ namespace ChangHeWebSite.Areas.Admin.Controllers
         /// <returns></returns>
         public async Task<JsonResult> UpdateNews(News news)
         {
+            news.NewsAuthor = HttpContext.Session.GetString("Token");
             _db.Newses.Update(news);
             ResponseTemplate response = new ResponseTemplate();
             response.Data = await _db.SaveChangesAsync();

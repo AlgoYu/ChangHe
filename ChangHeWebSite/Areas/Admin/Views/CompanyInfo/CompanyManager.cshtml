@@ -15,24 +15,33 @@
 
 <div class="layui-fluid">
     <div class="layui-row">
+        <!--左边区域-->>
         <div class="layui-col-xs6 layui-col-sm6 layui-col-md6 *	layui-col-lg6">
             <!--Logo设置-->
             <div class="content-center">
                 <div>
-                    <img src="@data.CompanyLogo" class="company-logo" id="logoImg" />
+                    <img src="@data.CompanyLogo" class="company-logo" id="logoImg"/>
                 </div>
                 <button class="layui-btn layui-btn-sm" class="company-logo-button" type="button" id="logoButton">上传Logo</button>
             </div>
-            <hr />
+            <hr/>
             <span>其他图片设置：</span>
             <!--其他图片设置-->
             <div class="other-image-container">
                 <div class="image-item content-center">
                     <div>
-                        <img src="@data.CompanyQRcode" id="qrCodeImg" />
+                        <img src="@data.CompanyQRcode" id="qrCodeImg"/>
                     </div>
                     <button class="layui-btn layui-btn-sm" type="button" id="qrCodeButton">上传二维码</button>
                 </div>
+            </div>
+            <hr/>
+            <!--公司描述-->
+            <div>
+                <!-- 加载编辑器的容器 -->
+                <script id="company-description-container" type="text/plain" style="width: 98%;margin: 0 auto">
+                    @Html.Raw(data.CompanyDescription)
+                </script>
             </div>
         </div>
         <!--右边区域-->
@@ -98,18 +107,16 @@
                         <input type="text" name="companyRecord" required lay-verify="required" placeholder="请输入公司备案号" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-                <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label">公司描述：</label>
-                    <div class="layui-input-block">
-                        <textarea name="companyDescription" required lay-verify="required" placeholder="请输入公司描述信息" class="layui-textarea"></textarea>
-                    </div>
-                    <!-- 隐藏表单字段:Logo -->
-                    <input type="hidden" name="id" />
-                    <!-- 隐藏表单字段:Logo -->
-                    <input type="hidden" name="companyLogo" />
-                    <!-- 隐藏表单字段:二维码 -->
-                    <input type="hidden" name="companyQRcode" />
-                </div>
+                <!-- 隐藏表单字段:id -->
+                <input type="hidden" name="id" />
+                <!-- 隐藏表单字段:Logo -->
+                <input type="hidden" name="companyLogo" />
+                <!-- 隐藏表单字段:二维码 -->
+                <input type="hidden" name="companyQRcode" />
+                <!-- 隐藏表单字段: 纬度-->
+                <input type="hidden" name="lat" value="@data.Lat"/>
+                <!-- 隐藏表单字段: 经度 -->
+                <input type="hidden" name="lng" value="@data.Lng"/>
                 <div class="layui-form-item content-center">
                     <button class="layui-btn layui-btn-lg layui-btn-radius" type="button" lay-submit lay-filter="saveInfo">保存信息</button>
                 </div>
@@ -117,10 +124,7 @@
         </div>
     </div>
 </div>
-<!--兼容IE8、IE9的栅格补丁-->
-<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-<!--兼容IE8、IE9的栅格补丁-->
+
 <script>
     //将Model转换为JavaScript对象
     var json = @Html.Raw(dataStr);
@@ -131,6 +135,12 @@
                 , form = layui.form
                 , upload = layui.upload
                 , $ = layui.$;
+
+            /*先删除以前的富文本编辑器*/
+            UE.delEditor("company-description-container");
+            /*渲染富文本编辑器*/
+            var companyDescriptionEditor = UE.getEditor('company-description-container');
+
             //初始化表单
             form.val("companyForm",json.data);
 
@@ -172,7 +182,9 @@
             });
 
             //表单提交事件
-            form.on('submit(saveInfo)', function(data) {
+            form.on('submit(saveInfo)', function (data) {
+                console.log(data);
+                data.field.companyDescription = companyDescriptionEditor.getContent();
                 var load = layer.load();
                 $.post('/Admin/@Url.Action("UpdateCompanyInfo","CompanyInfo")', data.field,
                     function (response, status) {
@@ -183,6 +195,6 @@
                         }
                         layer.close(load);
                     });
+                });
             });
-        });
 </script>
