@@ -1,4 +1,5 @@
-﻿@model ChangHeWebSite.Models.Dto.FrontDto
+﻿@using System.Text.RegularExpressions
+@model ChangHeWebSite.Models.Dto.FrontDto
 @{
     Layout = null;
 }
@@ -224,13 +225,25 @@
                 <div class="index-news one clearfix">
                     @for (int i = 0; i < Model.Newses.Count && i < 4; i++)
                     {
+                        string content = "";
+                        string strText = Regex.Replace(Model.Newses[i].NewsContent, "<[^>]+>", "");
+                        strText = Regex.Replace(strText, "&[^;]+;", "");
+                        if (Model.Newses[i].NewsContent.Length> 0 && strText.Length > Model.Newses[i].NewsContent.Length)
+                        {
+                            content = strText.Substring(0, Model.Newses[i].NewsContent.Length);
+                        }
+                        else
+                        {
+                            content = strText;
+                        }
+
                         <div class="col-md-3 col-sm-6">
                             <div class="service-index-img">
                                 <a href="@Url.Action("Detail", "News")?newsId=@Model.Newses[i].Id">
                                     <img src="@Model.Newses[i].NewsCover" />
                                     <h3>@Model.Newses[i].NewsTitle</h3>
                                     <time>@Model.Newses[i].NewsCreateDate</time>
-                                    <p>@Model.Newses[i].NewsContent</p>
+                                    <p>@content</p>
                                 </a>
                             </div>
                         </div>
